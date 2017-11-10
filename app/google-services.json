@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "978222270056",
+    "firebase_url": "https://farmtable-d30ae.firebaseio.com",
+    "project_id": "farmtable-d30ae",
+    "storage_bucket": "farmtable-d30ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978222270056:android:3b26ff3afd1a1f23",
+        "android_client_info": {
+          "package_name": "com.unown.finalunown"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978222270056-5iso6l9hjg8a2ql5dhu3s3lukhdttd8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAztL9kfcLn4Hqy_XiExSAyhK3bDPpzE-k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

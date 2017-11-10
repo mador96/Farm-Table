@@ -7,30 +7,30 @@
     tools:context="com.unown.finalunown.RegisterActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/usernameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="109dp"
-        android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="101dp" />
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="101dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="109dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textVisiblePassword"
-        android:text="Password"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="175dp"
+        android:layout_alignStart="@+id/usernameEditText"
+        android:layout_below="@+id/usernameEditText"
         android:layout_marginTop="29dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textVisiblePassword"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="175dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,14 +48,14 @@
         android:id="@+id/locationEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordEditText"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="31dp"
         android:ems="10"
+        android:hint="Location"
         android:inputType="textPostalAddress"
-        android:text="Location"
         tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="246dp"
-        android:layout_marginTop="39dp"
-        android:layout_below="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        tools:layout_editor_absoluteY="246dp" />
 
     <TextView
         android:id="@+id/registerTextView"
@@ -94,10 +94,13 @@
         android:id="@+id/createProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/yesSellerRadioButton"
+        android:layout_below="@+id/yesSellerRadioButton"
+        android:layout_marginTop="52dp"
+        android:onClick="writeNewUser"
         android:text="Create Profile"
         tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="416dp"
-        android:layout_below="@+id/yesSellerRadioButton"
-        android:layout_alignStart="@+id/yesSellerRadioButton"
-        android:layout_marginTop="52dp" />
+        tools:layout_editor_absoluteY="416dp" />
+
+
 </RelativeLayout>
