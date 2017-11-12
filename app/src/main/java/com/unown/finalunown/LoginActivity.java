@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = (EditText) findViewById(R.id.passwordEditText);
     }
 
-    //Check if given credentials exist in the system..... how is this being called?
+    //Check if given credentials exist in the system
     public void loadFromSharedPreferences(View view){
         String passwordStr = null;
         SharedPreferences credentials = getSharedPreferences(PREFS_NAME, 0);
@@ -51,12 +51,14 @@ public class LoginActivity extends AppCompatActivity {
             //Bring to home page
             if(sellerYesNo.matches("Yes")) { //uncomment when MyFarmActivity is created!!
                 //Intent intent = new Intent(this, MyFarmActivity.class);
-                //startActivity(intent);
-            }
-            else{
-                Intent intent = new Intent(this, SearchActivity.class);
+                Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
             }
+            else{
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+            }
+
         }
     }
 
