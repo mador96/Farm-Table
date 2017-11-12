@@ -10,38 +10,104 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class EditProfileActivity extends AppCompatActivity {
 
     static final int TAKE_PHOTO_PERMISSION = 1;
     static final int REQUEST_TAKE_PHOTO = 2;
     static final int PICK_IMAGE_REQUEST = 3;
+    private DatabaseReference mDatabase;
+    User mUser;
+
 
     ImageView profilePicture;
     Button takePictureButton;
+    Button saveButton;
+    EditText nameET, locationET, descriptionET;
 
     Uri file;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        //Intent passedIntent = getIntent();
 
+
+        //initialize fields
+        saveButton = (Button) findViewById(R.id.saveButton);
         takePictureButton = (Button) findViewById(R.id.takePictureButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
+        nameET = (EditText) findViewById(R.id.locationEditText);
+        locationET = (EditText) findViewById(R.id.locationEditText);
+        descriptionET = (EditText) findViewById(R.id.descriptionEditText);
+        //ImageView??
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //get passed info from previous activity
+        //mUser = passedIntent.getParcelableExtra("passedItem");
+
+
+        //populate fields with profile info
+        //????????????
+       // nameET.setText(mUser.getName());
+        //descriptionET.setText(mUser.getDescription());
+        //locationET.setText("This is a test"); //fix this
+        //ImageView??
+
         // We are giving you the code that checks for permissions
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             takePictureButton.setEnabled(false);
             ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, TAKE_PHOTO_PERMISSION);
         }
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                String name = nameET.getText().toString();
+                String location = locationET.getText().toString();
+                String description = descriptionET.getText().toString();
+                //ImageView???
+
+                //update item
+                //mUser.setName(name);
+                //mUser.setDescription(description);
+                //mUser.setLocationLatitude();
+                //mUser.setLocationLongitude();
+
+                //return new item to previous activity
+                Intent returnIntent = new Intent();
+                //returnIntent.putExtra("returnPosition", position);
+                //returnIntent.putExtra("resultItem", resultItem);
+
+                setResult(2, returnIntent);
+                finish();
+            }
+        });
     }
+    /*
+    //If cancel button is pressed, go back to main activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.ProfileActivity){
+            finish();
+            return true;
+        }
+        return false;
+    }
+    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -64,7 +130,7 @@ public class EditProfileActivity extends AppCompatActivity {
         file = Uri.fromFile(getOutputMediaFile());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
 
-        startActivityForResult(intent, REQUEST_TAKE_PHOTO); //here is throwing error?
+        startActivityForResult(intent, REQUEST_TAKE_PHOTO);
     }
 
     public void getImageFromLibrary(View view) {
