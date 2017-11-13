@@ -20,7 +20,8 @@
         <activity
             android:name=".UserSearchActivity"
             android:label="@string/title_activity_user_search"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

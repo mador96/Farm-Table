@@ -1,6 +1,7 @@
 package com.unown.finalunown;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ErinA on 11/10/2017.
@@ -8,14 +9,14 @@ import java.util.ArrayList;
 
 public class User {
 
-    private ArrayList<Product> productsList;
+    private List<Product> productsList;
     private String name;
     private String description;
     private double locationLatitude;
     private double locationLongitude;
     boolean isSeller;
 
-    public User(ArrayList<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
+    public User(List<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
         this.productsList = productsList;
         this.name = name;
         this.description = description;
@@ -32,11 +33,11 @@ public class User {
         isSeller = seller;
     }
 
-    public ArrayList<Product> getProductsList() {
+    public List<Product> getProductsList() {
         return productsList;
     }
 
-    public void setProductsList(ArrayList<Product> productsList) {
+    public void setProductsList(List<Product> productsList) {
         this.productsList = productsList;
     }
 

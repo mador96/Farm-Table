@@ -1,22 +1,23 @@
 package com.unown.finalunown;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ErinA on 11/9/2017.
  */
 
 public class Buyer  extends User {
-    private ArrayList<Product>  recentPurchases;
+    private List<Product>  recentPurchases;
 
 
-    public Buyer(ArrayList<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, ArrayList<Product> recentPurchases, boolean isSeller) {
+    public Buyer(List<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, List<Product> recentPurchases, boolean isSeller) {
         super(productsList, name, description, locationLatitude, locationLongitude, isSeller);
         this.recentPurchases = recentPurchases;
     }
 
 
-    public ArrayList<Product> getRecentPurchases() {
+    public List<Product> getRecentPurchases() {
         return recentPurchases;
     }
 
