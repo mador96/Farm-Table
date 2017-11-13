@@ -102,8 +102,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
-            SharedPreferences.Editor editor2 = credentials.edit();
-            editor.putString(usernameValue, sellerYesNo);
+            SharedPreferences.Editor editor2 = sellerStatus.edit();
+            editor2.putString(usernameValue, sellerYesNo);
             editor2.commit();
             Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show(); //remove
 
