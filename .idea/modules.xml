@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FinalUnown.iml" filepath="$PROJECT_DIR$/FinalUnown.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/final-project-final-unown.iml" filepath="$PROJECT_DIR$/final-project-final-unown.iml" />
-      <module fileurl="file://$PROJECT_DIR$/final-project-final-unown2.iml" filepath="$PROJECT_DIR$/final-project-final-unown2.iml" />
     </modules>
   </component>
 </project>

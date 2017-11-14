@@ -89,14 +89,14 @@ public class RegisterActivity extends AppCompatActivity {
             editor.putString(usernameValue, passwordValue);
             editor.commit();
 
-            if (isSellerButton.isChecked()){
-                Toast.makeText(this, "is Seller button checked", Toast.LENGTH_SHORT).show();
-                mUser = new Buyer(cart, "","",0.0,0.0,listOfRecent,true);
+            if (notSellerButton.isChecked()){
+                Toast.makeText(this, "not Seller button checked", Toast.LENGTH_SHORT).show();
+                mUser = new Buyer(cart, "","",0.0,0.0,listOfRecent,false);
                 sellerYesNo = "Yes";
             }
-            if (notSellerButton.isChecked()){
-                Toast.makeText(this, "not seller button checked", Toast.LENGTH_SHORT).show();
-                mUser = new Seller(inventory,"","", 0.0,0.0,0,0,false);
+            if (isSellerButton.isChecked()){
+                Toast.makeText(this, "is seller button checked", Toast.LENGTH_SHORT).show();
+                mUser = new Seller(inventory,"","", 0.0,0.0,0,0,true);
                 sellerYesNo = "No";
 
             }
