@@ -97,17 +97,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-    /*
-    //If cancel button is pressed, go back to main activity
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == android.R.id.ProfileActivity){
-            finish();
-            return true;
-        }
-        return false;
-    }
-    */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -162,7 +151,6 @@ public class EditProfileActivity extends AppCompatActivity {
         // from the image gallery.
 
         if (requestCode == REQUEST_TAKE_PHOTO) {
-            // Add here.
             if(resultCode == RESULT_OK) {
                 profilePicture.setImageURI(file);
             }
@@ -181,5 +169,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    //If cancel button is pressed, go back to main activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return false;
     }
 }
