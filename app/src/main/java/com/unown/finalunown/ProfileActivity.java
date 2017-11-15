@@ -9,10 +9,15 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class ProfileActivity extends AppCompatActivity {
-    private DatabaseReference mDatabase;
     User mUser;
     TextView name, location, description;
+    private ArrayList<User> listOfUsers;
+    private DatabaseReference mDatabase, userDB, nameDatabase;
+
+
 
 
     @Override
@@ -25,7 +30,8 @@ public class ProfileActivity extends AppCompatActivity {
         location = (TextView) findViewById(R.id.locationTextView);
         description = (TextView) findViewById(R.id.descriptionTextView);
 
-       // name.setText(mUser.getName());
+
+       //name.setText(mUser.getName());
         //location.setText("A PLACE"); //fix this!!!
         //description.setText(mUser.getDescription());
     }
