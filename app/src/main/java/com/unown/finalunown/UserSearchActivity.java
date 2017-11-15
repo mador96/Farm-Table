@@ -73,8 +73,8 @@ public class UserSearchActivity extends AppCompatActivity
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
         listOfSellers = new ArrayList<Seller>();
-        listOfSellers = ReadData();
-        while (listOfSellers.isEmpty()){
+        ReadData();
+        /*while (listOfSellers.isEmpty()){
             Toast.makeText(mContext, "the list is empty in on create", Toast.LENGTH_SHORT).show();
         }
         //still trying to fix this because the info from the firebase is having issues
@@ -84,12 +84,13 @@ public class UserSearchActivity extends AppCompatActivity
             Toast.makeText(mContext, "from list loaded: " + listOfSellers.get(0).getName(), Toast.LENGTH_SHORT).show();
         }
         lv.setAdapter(adapter);
+        */
 
 
 
     }
 
-    public ArrayList<Seller> ReadData() {
+    public void ReadData() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
         listSellers = new ArrayList<Seller>();
@@ -122,16 +123,16 @@ public class UserSearchActivity extends AppCompatActivity
                     Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("name").getValue()), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(UserSearchActivity.this, postSnapshot.getValue(Seller.class).getName(), Toast.LENGTH_SHORT).show();
                 }
+
+                listAdapter adapter = new listAdapter(UserSearchActivity.this, listSellers);
+                lv.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
                 Log.e("The read failed: " ,firebaseError.getMessage());
             }
         });
-        if (listSellers.isEmpty()){
-            Toast.makeText(this, "the array is not empty after the filling data", Toast.LENGTH_SHORT).show();
-        }
-        return listSellers;
+
     }
 
 

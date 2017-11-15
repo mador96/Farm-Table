@@ -10,27 +10,27 @@
         android:id="@+id/usernameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="109dp"
-        android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="101dp" />
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="101dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="109dp" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textVisiblePassword"
-        android:text="Password"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="175dp"
-        android:layout_marginTop="29dp"
+        android:layout_alignStart="@+id/usernameEditText"
         android:layout_below="@+id/usernameEditText"
-        android:layout_alignStart="@+id/usernameEditText" />
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textVisiblePassword"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="175dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,52 +48,60 @@
         android:id="@+id/registerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register as a seller?"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="316dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Register as a seller or buyer?"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="316dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/radioGroup3"
         android:layout_below="@+id/registerTextView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/radioGroup3">
+        android:layout_marginTop="16dp">
+
         <RadioButton
             android:id="@+id/yesSellerRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yes"
-            tools:layout_editor_absoluteX="119dp"
-            tools:layout_editor_absoluteY="361dp"
-            android:layout_below="@+id/registerTextView"
             android:layout_alignEnd="@+id/noSellerRadioButton"
-            android:layout_marginTop="24dp" />
+            android:layout_below="@+id/registerTextView"
+            android:layout_marginTop="24dp"
+            android:text="Seller"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="119dp"
+            tools:layout_editor_absoluteY="361dp" />
 
         <RadioButton
             android:id="@+id/noSellerRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No"
-            tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="361dp"
-            android:layout_marginTop="80dp"
             android:layout_below="@+id/registerTextView"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:text="Buyer"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="204dp"
+            tools:layout_editor_absoluteY="361dp" />
     </RadioGroup>
 
     <Button
         android:id="@+id/createProfileButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Profile"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="416dp"
-        android:onClick="writeNewUser"
-        android:layout_marginTop="17dp"
         android:layout_below="@+id/radioGroup3"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:background="@color/colorPrimary"
+        android:onClick="writeNewUser"
+        android:text="Create Profile"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="416dp" />
 
 
 

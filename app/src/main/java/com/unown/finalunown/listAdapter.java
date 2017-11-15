@@ -2,6 +2,7 @@ package com.unown.finalunown;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ public class listAdapter extends ArrayAdapter {
         String distance;
         Context context;
         ArrayList<Seller> myList;
+        UserSearchActivity mySearchActivity;
+
         public listAdapter(Context context, ArrayList<Seller> resource){
             super(context,R.layout.list_view_row,resource);
             this.context=context;
@@ -53,11 +56,11 @@ public class listAdapter extends ArrayAdapter {
             String location = (lat +", " + longit);
 
 
-            distance.setOnClickListener(new View.OnClickListener() {
+            name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //checklistContent.updateDB(db, myDbHelper);
-                   //start new activity to go to info about that seller
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    context.startActivity(intent);
                 }
             });
             return convertView;

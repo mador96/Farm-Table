@@ -10,52 +10,59 @@
         android:id="@+id/usernameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username"
-        android:layout_marginTop="138dp"
+        android:layout_alignStart="@+id/passwordEditText"
         android:layout_below="@+id/titleTextView"
-        android:layout_alignStart="@+id/passwordEditText" />
+        android:layout_marginTop="138dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textVisiblePassword"
-        android:text="Password"
-        android:layout_marginTop="46dp"
         android:layout_below="@+id/usernameEditText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textVisiblePassword" />
 
     <Button
         android:id="@+id/loginButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="loadFromSharedPreferences"
-        android:layout_below="@+id/passwordEditText"
         android:layout_alignStart="@+id/registerButton"
-        android:layout_marginTop="66dp" />
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="69dp"
+        android:background="@color/colorPrimary"
+        android:onClick="loadFromSharedPreferences"
+        android:text="Login"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/facebookButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/holo_blue_dark"
         android:text="Login with Facebook"
+        android:textSize="18sp"
         android:layout_below="@+id/loginButton"
-        android:layout_alignEnd="@+id/titleTextView"
-        android:layout_marginTop="32dp" />
+        android:layout_alignEnd="@+id/titleTextView" />
 
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:onClick="openRegistration"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
+        android:layout_marginTop="33dp"
+        android:background="@color/colorPrimary"
+        android:onClick="openRegistration"
+        android:text="Register"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView2"
