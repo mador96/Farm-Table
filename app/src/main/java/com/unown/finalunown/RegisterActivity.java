@@ -99,7 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "is seller button checked", Toast.LENGTH_SHORT).show();
                 mUser = new Seller(inventory, usernameValue, "","", 0.0,0.0,0,0,true);
                 sellerYesNo = "No";
-
             }
 
             sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
