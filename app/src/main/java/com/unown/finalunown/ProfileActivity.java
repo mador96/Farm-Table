@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    /*
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +35,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         //attempt to populate profile with user info
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        userDB = mDatabase.child("User");
-        listOfUsers = new ArrayList<User>();
-        userDB.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot snapshot){
-                for(DataSnapshot postSnapshot: snapshot.getChildren()){
-                    User mUser =
-                }
-            }
-        });
 
 
     }
-    */
+
     //change this so that 'edit' button only appears if it si the current user's profile
     //https://stackoverflow.com/questions/9994967/android-how-to-make-a-button-display-on-a-condition
 

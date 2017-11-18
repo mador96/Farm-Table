@@ -105,12 +105,14 @@ public class UserSearchActivity extends AppCompatActivity
                     Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("locationLatitude").getValue()), Toast.LENGTH_SHORT).show();
                     String locationLat = String.valueOf(postSnapshot.child("locationLatitude").getValue());
                     String locationLong = String.valueOf(postSnapshot.child("locationLongitude").getValue());
+                    String username = String.valueOf(postSnapshot.child("username").getValue());
                     String name = String.valueOf(postSnapshot.child("name").getValue());
                     boolean seller = (boolean) postSnapshot.child("seller").getValue();
                     String numberSales = String.valueOf(postSnapshot.child("numberSales").getValue());
                     String totalSales = String.valueOf(postSnapshot.child("totalSales").getValue());
                     String userDescription = String.valueOf(postSnapshot.child("description").getValue());
-                    Seller mSeller = new Seller(listOfProducts,name, userDescription, Double.valueOf(locationLat), Double.valueOf(locationLong), Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
+                    Seller mSeller = new Seller(listOfProducts, username, name, userDescription, Double.valueOf(locationLat), Double.valueOf(locationLong), Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
+                    mSeller.setUsername(username);
                     mSeller.setName(name);
                     mSeller.setLocationLatitude(Double.valueOf(locationLat));
                     mSeller.setLocationLongitude(Double.valueOf(locationLong));

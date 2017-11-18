@@ -10,14 +10,16 @@ import java.util.List;
 public class User {
 
     private List<Product> productsList;
+    private String username;
     private String name;
     private String description;
     private double locationLatitude;
     private double locationLongitude;
     boolean isSeller;
 
-    public User(List<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
+    public User(List<Product> productsList, String username, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
         this.productsList = productsList;
+        this.username = username;
         this.name = name;
         this.description = description;
         this.locationLatitude = locationLatitude;
@@ -40,6 +42,10 @@ public class User {
     public void setProductsList(List<Product> productsList) {
         this.productsList = productsList;
     }
+
+    public String getUsername() {return username;}
+
+    public void setUsername(String username) {this.username = username;}
 
     public String getName() {
         return name;

@@ -11,8 +11,8 @@ public class Buyer  extends User {
     private List<Product>  recentPurchases;
 
 
-    public Buyer(List<Product> productsList, String name, String description, double locationLatitude, double locationLongitude, List<Product> recentPurchases, boolean isSeller) {
-        super(productsList, name, description, locationLatitude, locationLongitude, isSeller);
+    public Buyer(List<Product> productsList, String username, String name, String description, double locationLatitude, double locationLongitude, List<Product> recentPurchases, boolean isSeller) {
+        super(productsList, username, name, description, locationLatitude, locationLongitude, isSeller);
         this.recentPurchases = recentPurchases;
     }
 
