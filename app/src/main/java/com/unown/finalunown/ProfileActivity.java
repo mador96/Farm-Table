@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -19,22 +23,35 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //mDatabase = FirebaseDatabase.getInstance().getReference();
         name = (TextView) findViewById(R.id.nameTextView);
         location = (TextView) findViewById(R.id.locationTextView);
         description = (TextView) findViewById(R.id.descriptionTextView);
 
+        //attempt to populate profile with user info
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        userDB = mDatabase.child("User");
+        listOfUsers = new ArrayList<User>();
+        userDB.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+                for(DataSnapshot postSnapshot: snapshot.getChildren()){
+                    User mUser =
+                }
+            }
+        });
 
-       //name.setText(mUser.getName());
-        //location.setText("A PLACE"); //fix this!!!
-        //description.setText(mUser.getDescription());
+
     }
+    */
+    //change this so that 'edit' button only appears if it si the current user's profile
+    //https://stackoverflow.com/questions/9994967/android-how-to-make-a-button-display-on-a-condition
+
     public void editProfile(View view){
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
