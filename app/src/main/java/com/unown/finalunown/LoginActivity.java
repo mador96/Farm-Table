@@ -52,10 +52,12 @@ public class LoginActivity extends AppCompatActivity {
             if(sellerYesNo.matches("Yes")) { //uncomment when MyFarmActivity is created!!
                 //Intent intent = new Intent(this, MyFarmActivity.class);
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }
             else{
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }
 

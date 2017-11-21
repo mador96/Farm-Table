@@ -50,12 +50,13 @@ public class listAdapter extends ArrayAdapter {
             TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
             name.setText(myList.get(position).getName());
 
+            /*
             double lat = myList.get(position).getLocationLatitude();
             double longit = myList.get(position).getLocationLongitude();
 
             String location = (lat +", " + longit);
 
-
+            */
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

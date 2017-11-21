@@ -13,17 +13,21 @@ public class User {
     private String username;
     private String name;
     private String description;
-    private double locationLatitude;
-    private double locationLongitude;
+    //private double locationLatitude;
+    //private double locationLongitude;
+    private String location;
     boolean isSeller;
 
-    public User(List<Product> productsList, String username, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
+    //public User(List<Product> productsList, String username, String name, String description, double locationLatitude, double locationLongitude, boolean isSeller) {
+    public User(List<Product> productsList, String username, String name, String description, String location, boolean isSeller) {
+
         this.productsList = productsList;
         this.username = username;
         this.name = name;
         this.description = description;
-        this.locationLatitude = locationLatitude;
-        this.locationLongitude = locationLongitude;
+        this.location = location;
+        //this.locationLatitude = locationLatitude;
+        //this.locationLongitude = locationLongitude;
         this.isSeller = isSeller;
     }
 
@@ -63,6 +67,12 @@ public class User {
         this.description = description;
     }
 
+    public String getLocation() {return location;}
+
+    public void setLocation(String location) {this.location = location;}
+
+    /*
+
     public double getLocationLatitude() {
         return locationLatitude;
     }
@@ -78,6 +88,7 @@ public class User {
     public void setLocationLongitude(double locationLongitude) {
         this.locationLongitude = locationLongitude;
     }
+    */
 
 
 }

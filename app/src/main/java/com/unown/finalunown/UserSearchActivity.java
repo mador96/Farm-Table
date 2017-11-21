@@ -38,7 +38,8 @@ public class UserSearchActivity extends AppCompatActivity
     private ArrayList<Seller> listSellers;
     private List<Product> listOfProducts;
     private DatabaseReference mDatabase, sellerDB, nameDatabase;
-    private double locationLat, locationLong;
+    //private double locationLat, locationLong;
+    private String location;
     ListView lv;
 
     @Override
@@ -102,20 +103,24 @@ public class UserSearchActivity extends AppCompatActivity
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
                    // Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.getValue()), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("locationLatitude").getValue()), Toast.LENGTH_SHORT).show();
-                    String locationLat = String.valueOf(postSnapshot.child("locationLatitude").getValue());
-                    String locationLong = String.valueOf(postSnapshot.child("locationLongitude").getValue());
+                    //Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("locationLatitude").getValue()), Toast.LENGTH_SHORT).show();
+                    //String locationLat = String.valueOf(postSnapshot.child("locationLatitude").getValue());
+                    //String locationLong = String.valueOf(postSnapshot.child("locationLongitude").getValue());
+                    String location = String.valueOf(postSnapshot.child("location").getValue());
                     String username = String.valueOf(postSnapshot.child("username").getValue());
                     String name = String.valueOf(postSnapshot.child("name").getValue());
                     boolean seller = (boolean) postSnapshot.child("seller").getValue();
                     String numberSales = String.valueOf(postSnapshot.child("numberSales").getValue());
                     String totalSales = String.valueOf(postSnapshot.child("totalSales").getValue());
                     String userDescription = String.valueOf(postSnapshot.child("description").getValue());
-                    Seller mSeller = new Seller(listOfProducts, username, name, userDescription, Double.valueOf(locationLat), Double.valueOf(locationLong), Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
+                    //Seller mSeller = new Seller(listOfProducts, username, name, userDescription, Double.valueOf(locationLat), Double.valueOf(locationLong), Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
+                    Seller mSeller = new Seller(listOfProducts, username, name, userDescription, location, Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
+
                     mSeller.setUsername(username);
                     mSeller.setName(name);
-                    mSeller.setLocationLatitude(Double.valueOf(locationLat));
-                    mSeller.setLocationLongitude(Double.valueOf(locationLong));
+                    //mSeller.setLocationLatitude(Double.valueOf(locationLat));
+                    //mSeller.setLocationLongitude(Double.valueOf(locationLong));
+                    mSeller.setLocation(location);
                     mSeller.setSeller(seller);
                     listSellers.add(mSeller);
                     Toast.makeText(UserSearchActivity.this,"mSeller.getName()" + mSeller.getName(), Toast.LENGTH_SHORT).show();

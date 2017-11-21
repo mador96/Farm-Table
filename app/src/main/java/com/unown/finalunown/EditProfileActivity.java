@@ -1,5 +1,6 @@
 package com.unown.finalunown;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,22 +54,21 @@ public class EditProfileActivity extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.saveButton);
         takePictureButton = (Button) findViewById(R.id.takePictureButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
-        nameET = (EditText) findViewById(R.id.locationEditText);
+        nameET = (EditText) findViewById(R.id.nameEditText);
         locationET = (EditText) findViewById(R.id.locationEditText);
         descriptionET = (EditText) findViewById(R.id.descriptionEditText);
         //ImageView??
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //get passed info from previous activity
-        //mUser = passedIntent.getParcelableExtra("passedItem");
-
+        String nameStr = getIntent().getStringExtra("MY_NAME");
+        String descriptionStr = getIntent().getStringExtra("MY_DESCRIPTION");
+        String locationStr = getIntent().getStringExtra("MY_LOCATION");
 
         //populate fields with profile info
-        //????????????
-       // nameET.setText(mUser.getName());
-        //descriptionET.setText(mUser.getDescription());
-        //locationET.setText("This is a test"); //fix this
-        //ImageView??
+        nameET.setText(nameStr);
+        descriptionET.setText(descriptionStr);
+        locationET.setText(locationStr);
 
         // We are giving you the code that checks for permissions
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -89,10 +91,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 //return new item to previous activity
                 Intent returnIntent = new Intent();
-                //returnIntent.putExtra("returnPosition", position);
-                //returnIntent.putExtra("resultItem", resultItem);
+                returnIntent.putExtra("MY_NAME2", name);
+                returnIntent.putExtra("MY_LOCATION2", location);
+                returnIntent.putExtra("MY_DESCRIPTION2", description);
+                //get newly inputted strings and .set them for the user
 
-                setResult(2, returnIntent);
+
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });

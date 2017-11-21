@@ -14,8 +14,10 @@ public class Seller extends User {
 
 
 
-    public Seller(List<Product> ProductsList, String username, String name, String description, double locationLatitude, double locationLongitude, double totalSales, int numberSales, boolean isSeller){
-        super(ProductsList, username, name, description, locationLatitude, locationLongitude, isSeller);
+    //public Seller(List<Product> ProductsList, String username, String name, String description, double locationLatitude, double locationLongitude, double totalSales, int numberSales, boolean isSeller){
+    public Seller(List<Product> ProductsList, String username, String name, String description, String location, double totalSales, int numberSales, boolean isSeller){
+        //super(ProductsList, username, name, description, locationLatitude, locationLongitude, isSeller);
+        super(ProductsList, username, name, description, location, isSeller);
         this.totalSales = totalSales;
         this.numberSales = numberSales;
 
