@@ -27,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     String nameStr, locationStr, descriptionStr;
     private ArrayList<Seller> listOfSellers;
     private DatabaseReference mDatabase, sellerDB;
+    String passingUsername = null;
 
 
     @Override
@@ -43,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         sellerDB =  mDatabase.child("Seller");
         listOfSellers = new ArrayList<Seller>();
         final String myUsername = getIntent().getStringExtra("MY_USERNAME");
-
+        passingUsername = myUsername;
 
 
         sellerDB.addValueEventListener(new ValueEventListener() {
@@ -87,14 +88,34 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) { //editProfile results
-                String returnedName = data.getStringExtra("MY_NAME2");
-                String returnedDescription = data.getStringExtra("MY_DESCRIPTION2");
-                String returnedLocation = data.getStringExtra("MY_LOCATION2");
+                final String returnedName = data.getStringExtra("MY_NAME2");
+                final String returnedDescription = data.getStringExtra("MY_DESCRIPTION2");
+                final String returnedLocation = data.getStringExtra("MY_LOCATION2");
                 name.setText(returnedName);
                 location.setText(returnedLocation);
                 description.setText(returnedDescription);
                 //how to set image? and store that image in firebase?
+
                 //how to update firebase?????
+                sellerDB.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for(DataSnapshot postSnapshot: snapshot.getChildren()) {
+                            if(passingUsername.equals(String.valueOf(postSnapshot.child("username").getValue()))) { //if person's username == username in the database
+                                //then do something
+                                 String parentNode = postSnapshot.getKey(); //this is the parent node
+                                sellerDB.child(parentNode).child("name").setValue(returnedName);
+                                sellerDB.child(parentNode).child("location").setValue(returnedLocation);
+                                sellerDB.child(parentNode).child("description").setValue(returnedDescription);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError firebaseError) {
+                        Log.e("The read failed: " ,firebaseError.getMessage());
+                    }
+                });
             }
         }
     }
