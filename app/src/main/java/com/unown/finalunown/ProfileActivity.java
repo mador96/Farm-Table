@@ -80,17 +80,22 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra("MY_NAME", nameStr);
         intent.putExtra("MY_DESCRIPTION", descriptionStr);
         intent.putExtra("MY_LOCATION", locationStr);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
-    //why isn't this working??!?!?!?
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        //if(requestCode == EDIT_REQUEST_CODE) {
+        if(requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) { //editProfile results
-                String test = data.getStringExtra("MY_NAME2");
-                name.setText(test);
+                String returnedName = data.getStringExtra("MY_NAME2");
+                String returnedDescription = data.getStringExtra("MY_DESCRIPTION2");
+                String returnedLocation = data.getStringExtra("MY_LOCATION2");
+                name.setText(returnedName);
+                location.setText(returnedLocation);
+                description.setText(returnedDescription);
+                //how to set image? and store that image in firebase?
+                //how to update firebase?????
             }
-        //}
+        }
     }
 }
