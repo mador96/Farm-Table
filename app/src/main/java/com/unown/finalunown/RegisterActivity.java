@@ -93,13 +93,13 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "not Seller button checked", Toast.LENGTH_SHORT).show();
                 //mUser = new Buyer(cart, usernameValue, "","",0.0,0.0,listOfRecent,false);
                 mUser = new Buyer(cart, usernameValue, "","","",listOfRecent,false);
-                sellerYesNo = "Yes";
+                sellerYesNo = "No";
             }
             if (isSellerButton.isChecked()){
                 Toast.makeText(this, "is seller button checked", Toast.LENGTH_SHORT).show();
                 //mUser = new Seller(inventory, usernameValue, "","", 0.0,0.0,0,0,true);
                 mUser = new Seller(inventory, usernameValue, "","", "",0,0,true);
-                sellerYesNo = "No";
+                sellerYesNo = "Yes";
             }
 
             sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
