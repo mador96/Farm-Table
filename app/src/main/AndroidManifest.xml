@@ -27,7 +27,8 @@
         <activity
             android:name=".SellerSearch"
             android:label="@string/title_activity_seller_search"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ProfileSellingActivity"></activity>
     </application>
 
 </manifest>

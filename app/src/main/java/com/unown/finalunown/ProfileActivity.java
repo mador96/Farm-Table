@@ -35,6 +35,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Intent passedIntent = getIntent();
+        String nameString =  passedIntent.getStringExtra("name");
+
         name = (TextView) findViewById(R.id.nameTextView);
         location = (TextView) findViewById(R.id.locationTextView);
         description = (TextView) findViewById(R.id.descriptionTextView);
@@ -64,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
                    }
                }
             }
+
 
             @Override
             public void onCancelled(DatabaseError firebaseError) {

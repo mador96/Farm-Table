@@ -98,7 +98,7 @@ public class UserSearchActivity extends AppCompatActivity
         sellerDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Toast.makeText(UserSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(UserSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
@@ -123,10 +123,10 @@ public class UserSearchActivity extends AppCompatActivity
                     mSeller.setLocation(location);
                     mSeller.setSeller(seller);
                     listSellers.add(mSeller);
-                    Toast.makeText(UserSearchActivity.this,"mSeller.getName()" + mSeller.getName(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(UserSearchActivity.this, "name " + name, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UserSearchActivity.this,"mSeller.getName()" + mSeller.getName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UserSearchActivity.this, "name " + name, Toast.LENGTH_SHORT).show();
                     //Seller mSeller = new Seller();
-                    Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("name").getValue()), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("name").getValue()), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(UserSearchActivity.this, postSnapshot.getValue(Seller.class).getName(), Toast.LENGTH_SHORT).show();
                 }
 

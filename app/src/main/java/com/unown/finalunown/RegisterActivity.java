@@ -112,6 +112,9 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, mUser.getName(), Toast.LENGTH_SHORT).show();
             if(mUser.isSeller){
                 mDatabase.child("Seller").child(mUser.getName()).setValue(mUser);
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("apple");
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("pie");
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("potato");
             } else {
                 mDatabase.child("Buyer").child(mUser.getName()).setValue(mUser);
             }

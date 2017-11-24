@@ -19,6 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by ErinA on 11/13/2017.
  */
+//used to display a list of seller objects
 
 public class listAdapter extends ArrayAdapter {
 
@@ -48,7 +49,8 @@ public class listAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.list_view_row, parent, false);
             TextView name = (TextView) convertView.findViewById(R.id.sellerNameTextView);
             TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
-            name.setText(myList.get(position).getName());
+            final String nameString = myList.get(position).getName();
+            name.setText(nameString);
 
             /*
             double lat = myList.get(position).getLocationLatitude();
@@ -60,7 +62,8 @@ public class listAdapter extends ArrayAdapter {
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, ProfileActivity.class);
+                    Intent intent = new Intent(context, ProfileSellingActivity.class);
+                    intent.putExtra("name", nameString);
                     context.startActivity(intent);
                 }
             });
