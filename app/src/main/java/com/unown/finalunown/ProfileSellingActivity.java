@@ -63,7 +63,7 @@ public class ProfileSellingActivity extends AppCompatActivity {
                     String productName = String.valueOf(postSnapshot.child("name").getValue());
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
-                    Product newProduct = new Product(category, Double.valueOf(productPrice) , productName);
+                    Product newProduct = new Product(category, Double.valueOf(productPrice) , productName, 2);
                     inventory.add(newProduct);
                     Toast.makeText(ProfileSellingActivity.this, "productName " + productName, Toast.LENGTH_LONG).show();
                     Toast.makeText(ProfileSellingActivity.this, "inventory arraylist name" + inventory.get(0).getProductName(), Toast.LENGTH_SHORT).show();

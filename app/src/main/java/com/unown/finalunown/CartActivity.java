@@ -21,9 +21,9 @@ public class CartActivity extends AppCompatActivity {
 
         //Delete later -- prepopulating to test
         List<Product> cartItems = new ArrayList<Product>();
-        Product p1 = new Product("Fruit", 2.00, "Cherries");
-        Product p2 = new Product("Vegetable", 3.00, "Carrots");
-        Product p3 = new Product("Vegetable", 4.00, "Tomatoes");
+        Product p1 = new Product("Fruit", 2.00, "Cherries", 4);
+        Product p2 = new Product("Vegetable", 3.00, "Carrots", 7);
+        Product p3 = new Product("Vegetable", 4.00, "Tomatoes", 20);
         cartItems.add(p1);
         cartItems.add(p2);
         cartItems.add(p3);
