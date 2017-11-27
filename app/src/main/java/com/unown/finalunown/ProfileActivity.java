@@ -2,6 +2,7 @@ package com.unown.finalunown;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +27,10 @@ public class ProfileActivity extends AppCompatActivity {
     TextView name, location, description;
     String nameStr, locationStr, descriptionStr;
     private ArrayList<Seller> listOfSellers;
-    private DatabaseReference mDatabase, sellerDB;
+    private ArrayList<Buyer> listOfBuyers;
+    private DatabaseReference mDatabase, theDB;
     String passingUsername = null;
+    public static final String PREFS_NAME2 = "SellerStatusFile";
 
 
     @Override
@@ -42,15 +45,29 @@ public class ProfileActivity extends AppCompatActivity {
         location = (TextView) findViewById(R.id.locationTextView);
         description = (TextView) findViewById(R.id.descriptionTextView);
 
-        //see if i can get name of seller first
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        sellerDB =  mDatabase.child("Seller");
-        listOfSellers = new ArrayList<Seller>();
+        //get username from login activity
         final String myUsername = getIntent().getStringExtra("MY_USERNAME");
         passingUsername = myUsername;
 
+        //determine if this user is a buyer or a seller
+        SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
+        String status = sellerStatus.getString(passingUsername, null);
 
-        sellerDB.addValueEventListener(new ValueEventListener() {
+        //if user is a seller, get seller database
+        if(status.equals("Yes")){
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            theDB = mDatabase.child("Seller");
+            listOfSellers = new ArrayList<Seller>();
+        }
+        //if user is a buyer, get buyer database
+        else{
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            theDB = mDatabase.child("Buyer");
+            listOfBuyers = new ArrayList<Buyer>();
+        }
+
+
+        theDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot postSnapshot: snapshot.getChildren()) {
@@ -100,17 +117,17 @@ public class ProfileActivity extends AppCompatActivity {
                 description.setText(returnedDescription);
                 //how to set image? and store that image in firebase?
 
-                //how to update firebase?????
-                sellerDB.addValueEventListener(new ValueEventListener() {
+                //how to update firebase
+                theDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         for(DataSnapshot postSnapshot: snapshot.getChildren()) {
                             if(passingUsername.equals(String.valueOf(postSnapshot.child("username").getValue()))) { //if person's username == username in the database
                                 //then do something
                                  String parentNode = postSnapshot.getKey(); //this is the parent node
-                                sellerDB.child(parentNode).child("name").setValue(returnedName);
-                                sellerDB.child(parentNode).child("location").setValue(returnedLocation);
-                                sellerDB.child(parentNode).child("description").setValue(returnedDescription);
+                                theDB.child(parentNode).child("name").setValue(returnedName);
+                                theDB.child(parentNode).child("location").setValue(returnedLocation);
+                                theDB.child(parentNode).child("description").setValue(returnedDescription);
                             }
                         }
                     }

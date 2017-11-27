@@ -49,8 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = (EditText) findViewById(R.id.usernameEditText);
         isSellerButton = (RadioButton) findViewById(R.id.yesSellerRadioButton);
         notSellerButton = (RadioButton) findViewById(R.id.noSellerRadioButton);
-        Product apple = new Product("fruit", 0.30, "apple");
-        Product carrot = new Product("vegetable", 0.45, "carrot");
+        Product apple = new Product("fruit", 0.30, "apple", 1);
+        Product carrot = new Product("vegetable", 0.45, "carrot", 1);
         //inventory.add(apple);
         //inventory.add(carrot);
         mDatabase = FirebaseDatabase.getInstance().getReference();
