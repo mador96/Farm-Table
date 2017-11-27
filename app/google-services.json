@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "270862850607-bvknr4avochdpff10r9nu3ibmofdu7hd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unown.finalunown",
+            "certificate_hash": "bea53225b33fd389bf1dc7f5b6d8c8c089caef67"
+          }
+        },
+        {
           "client_id": "270862850607-5eo17tiii96oj5lk7ea9in097dl5hhs4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -44,8 +44,14 @@ public class listAdapterProducts extends ArrayAdapter {
         convertView = inflater.inflate(R.layout.list_view_row, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.sellerNameTextView);
         TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
+        TextView price = (TextView) convertView.findViewById(R.id.priceTextView);
+        TextView quantity = (TextView) convertView.findViewById(R.id.quantityTextView);
         final String nameString = myList.get(position).getProductName();
+        final double priceDouble = myList.get(position).getPrice();
+        final int quantityInt = myList.get(position).getQuantity();
         name.setText(nameString);
+        price.setText("$" + Double.toString(priceDouble));
+        quantity.setText("x" + Integer.toString(quantityInt));
 
             /*
             double lat = myList.get(position).getLocationLatitude();
@@ -59,6 +65,8 @@ public class listAdapterProducts extends ArrayAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProfileSellingActivity.class);
                 intent.putExtra("name", nameString);
+                intent.putExtra("price", priceDouble); //need this?
+                intent.putExtra("quantity", quantityInt); //need this?
                 context.startActivity(intent);
             }
         });

@@ -28,8 +28,9 @@
             android:name=".SellerSearch"
             android:label="@string/title_activity_seller_search"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ProfileSellingActivity"></activity>
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".ProfileSellingActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".PantryActivity"></activity>
     </application>
 
 </manifest>

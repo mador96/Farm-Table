@@ -56,7 +56,10 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else{
-                Intent intent = new Intent(this, ProfileActivity.class);
+                //Intent intent = new Intent(this, ProfileActivity.class);
+                //intent.putExtra("MY_USERNAME", usernameValue);
+                //temporary change:
+                Intent intent = new Intent(this, CartActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }

@@ -117,6 +117,18 @@ public class RegisterActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("potato");
             } else {
                 mDatabase.child("Buyer").child(mUser.getName()).setValue(mUser);
+                //mDatabase.child("Buyer").child(mUser.getName()).child("Cart");
+                //Product p = new Product("Vegetable", 4.00, "Tomatoes",5);
+
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato");
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Price").setValue(4.00);
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Quantity").setValue(5);
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Category").setValue("Vegetable");
+
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange");
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Price").setValue(3.00);
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Quantity").setValue(5);
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Category").setValue("Fruit");
             }
         }
 

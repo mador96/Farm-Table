@@ -6,11 +6,57 @@
     android:layout_height="match_parent"
     tools:context="com.unown.finalunown.CartActivity">
 
+
     <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp" />
+        android:layout_marginTop="125dp"
+        android:layout_marginBottom="300dp" />
+
+    <Button
+        android:id="@+id/placeOrderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:onClick="placeOrder"
+        android:text="Place Order"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/totalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="85dp"
+        android:textSize="30dp"
+        android:text="Total: "
+        android:layout_above="@+id/placeOrderButton"
+        android:layout_alignStart="@+id/placeOrderButton" />
+
+    <TextView
+        android:id="@+id/totalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:text="$0.00"
+        android:textSize="30dp"
+        android:layout_alignBaseline="@+id/totalLabel"
+        android:layout_alignBottom="@+id/totalLabel"
+        android:layout_toEndOf="@+id/placeOrderButton" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/totalCost"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="27dp"
+        android:text="My Cart"
+        android:textSize="70dp" />
+
 </RelativeLayout>
