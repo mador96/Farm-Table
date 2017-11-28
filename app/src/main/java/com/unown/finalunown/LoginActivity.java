@@ -49,17 +49,15 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
             String sellerYesNo = sellerStatus.getString(usernameValue, null);
             //Bring to home page
-            if(sellerYesNo.matches("Yes")) { //uncomment when MyFarmActivity is created!!
-                //Intent intent = new Intent(this, MyFarmActivity.class);
-                Intent intent = new Intent(this, ProfileActivity.class);
+            if(sellerYesNo.matches("Yes")) {
+                //Intent intent = new Intent(this, ProfileActivity.class);
+                //temporary change for testing:
+                Intent intent = new Intent(this, PantryActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }
             else{
-                //Intent intent = new Intent(this, ProfileActivity.class);
-                //intent.putExtra("MY_USERNAME", usernameValue);
-                //temporary change:
-                Intent intent = new Intent(this, CartActivity.class);
+                Intent intent = new Intent(this, ProfileActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }

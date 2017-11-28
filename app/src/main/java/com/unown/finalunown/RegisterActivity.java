@@ -112,14 +112,17 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, mUser.getName(), Toast.LENGTH_SHORT).show();
             if(mUser.isSeller){
                 mDatabase.child("Seller").child(mUser.getName()).setValue(mUser);
-                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("apple");
-                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("pie");
-                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("item").setValue("potato");
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato");
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Price").setValue(4.00);
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Quantity").setValue(5);
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Category").setValue("Vegetable");
+
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange");
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Price").setValue(3.00);
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Quantity").setValue(5);
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Category").setValue("Fruit");
             } else {
                 mDatabase.child("Buyer").child(mUser.getName()).setValue(mUser);
-                //mDatabase.child("Buyer").child(mUser.getName()).child("Cart");
-                //Product p = new Product("Vegetable", 4.00, "Tomatoes",5);
-
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato");
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Price").setValue(4.00);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Quantity").setValue(5);
