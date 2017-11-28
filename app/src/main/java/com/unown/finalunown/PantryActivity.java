@@ -44,6 +44,8 @@ public class PantryActivity extends AppCompatActivity {
         Intent passedIntent = getIntent();
         username = passedIntent.getStringExtra("MY_USERNAME");
         readData();
+        adapter = new listAdapterProducts(PantryActivity.this, myPantry);
+        list.setAdapter(adapter);
     }
 
     public void readData(){
@@ -57,6 +59,7 @@ public class PantryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot){
                 String theQuantity = "";
+                myPantry.clear();
                 for(DataSnapshot postSnapshot: snapshot.getChildren()){
                     String productName = String.valueOf(postSnapshot.getKey());
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
@@ -109,7 +112,11 @@ public class PantryActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Price").setValue(itemPrice);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Quantity").setValue(itemQuantity);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
-                //adapter.notifyDataSetChanged();
+
+
+                Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity);
+                myPantry.add(newProduct);
+                adapter.notifyDataSetChanged();
             }
         }
     }
