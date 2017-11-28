@@ -52,6 +52,7 @@ public class PantryActivity extends AppCompatActivity {
         userDB = sellerDB.child(username);
         pantryDB = userDB.child("Inventory");
         myPantry = new ArrayList<Product>();
+
         pantryDB.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot snapshot){
@@ -61,10 +62,14 @@ public class PantryActivity extends AppCompatActivity {
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
                     theQuantity = String.valueOf(postSnapshot.child("Quantity").getValue());
-                    Toast.makeText(PantryActivity.this, theQuantity, Toast.LENGTH_SHORT).show();
 
-                    Product newProduct = new Product(category, Double.parseDouble(productPrice), productName, Integer.parseInt(theQuantity));
-                    myPantry.add(newProduct);
+                    try {
+                        Product newProduct = new Product(category, Double.parseDouble(productPrice), productName, Integer.parseInt(theQuantity));
+                        myPantry.add(newProduct);
+                    }
+                    catch(NumberFormatException e){
+                        //Just using this to catch null error
+                    }
 
                 }
 
@@ -104,7 +109,7 @@ public class PantryActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Price").setValue(itemPrice);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Quantity").setValue(itemQuantity);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
             }
         }
     }
