@@ -58,6 +58,7 @@ public class listAdapter extends ArrayAdapter {
             */
 
 
+            /*
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -67,6 +68,7 @@ public class listAdapter extends ArrayAdapter {
 
                 }
             });
+                */
             return convertView;
         }
 }

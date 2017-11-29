@@ -127,7 +127,7 @@ public class CartActivity extends AppCompatActivity {
                 //formatter.format(totalCostInt);
                 totalCost.setText("$" + Double.toString(totalCostInt));
 
-                listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart, "John");
+                listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);
                 list.setAdapter(adapter);
             }
             @Override

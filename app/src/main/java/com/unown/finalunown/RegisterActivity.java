@@ -115,31 +115,36 @@ public class RegisterActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Price").setValue(4.00);
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Quantity").setValue(5);
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Category").setValue("Vegetable");
-                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Owner").setValue(mUser.getName());
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato").child("Owner").setValue(usernameValue);
+
+
 
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange");
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Price").setValue(3.00);
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Quantity").setValue(5);
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Category").setValue("Fruit");
-                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Owner").setValue(mUser.getName());
+                mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Orange").child("Owner").setValue(usernameValue);
+
+
             } else {
                 mDatabase.child("Buyer").child(mUser.getName()).setValue(mUser);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato");
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Price").setValue(4.00);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Quantity").setValue(5);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Category").setValue("Vegetable");
-                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Owner").setValue("cam");
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Tomato").child("Owner").setValue("mart");
+
 
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange");
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Price").setValue(3.00);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Quantity").setValue(5);
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Category").setValue("Fruit");
-                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Owner").setValue("cam");
+                mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Owner").setValue("paul");
+
             }
         }
 
-        //Intent intent = new Intent(this, ProductSearchActivity.class);
-        Intent intent = new Intent (this, ProductSearchActivity.class);
+        Intent intent = new Intent(this, ProductSearchActivity.class);
         startActivity(intent);
 
     }

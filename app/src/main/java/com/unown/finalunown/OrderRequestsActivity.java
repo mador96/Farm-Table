@@ -37,6 +37,7 @@ public class OrderRequestsActivity extends AppCompatActivity {
         Intent passedIntent = getIntent();
         ownerUsername = passedIntent.getStringExtra("MY_USERNAME");
 
+
         readData();
 
         adapter = new listAdapterProducts(OrderRequestsActivity.this, myOrders);
@@ -46,33 +47,9 @@ public class OrderRequestsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
-                myOrders.remove(position);
-                //test
-                adapter.notifyDataSetChanged();
 
-                /*
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                ownerDB = mDatabase.child("Order").child(ownerUsername);
-                myOrders = new ArrayList<Product>();
-                ownerDB.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                        //myOrders.clear();
-                        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                            //this gets buyer's username
-                            for(DataSnapshot ps: postSnapshot.getChildren()){
-                                for(DataSnapshot ppp: ps.getChildren()){
-                                    ppp.getRef().removeValue();
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError firebaseError) {
-                        Log.e("The read failed: " ,firebaseError.getMessage());
-                    }
-                });
-                */
+                deleteFromFirebase(myOrders.get(position).getProductName(), myOrders.get(position).getOwner());
+
             }
         });
     }
@@ -113,5 +90,16 @@ public class OrderRequestsActivity extends AppCompatActivity {
                 Log.e("The read failed: " ,firebaseError.getMessage());
             }
         });
+    }
+
+    public void deleteFromFirebase(String productName, String buyerName){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        ownerDB = mDatabase.child("Order").child(ownerUsername);
+        final String pN = productName;
+        myOrders = new ArrayList<Product>();
+
+        ownerDB.child(buyerName).child(productName).setValue(null);
+        //adapter.notifyDataSetChanged();
+
     }
 }

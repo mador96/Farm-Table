@@ -61,6 +61,8 @@ public class listAdapterProducts extends ArrayAdapter {
             double longit = myList.get(position).getLocationLongitude();
             String location = (lat +", " + longit);
             */
+
+        /*
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +74,7 @@ public class listAdapterProducts extends ArrayAdapter {
                 context.startActivity(intent);
             }
         });
+        */
         return convertView;
     }
 }
