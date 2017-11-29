@@ -11,19 +11,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
  * Created by ErinA on 11/13/2017.
  */
 //to display a list of products
-public class listAdapterProductsSell extends ArrayAdapter {
+public class listAdapterProductsSell extends ArrayAdapter implements Filterable {
 
 
     //ChecklistContent checklistContent = new ChecklistContent(getContext());
@@ -43,16 +46,25 @@ public class listAdapterProductsSell extends ArrayAdapter {
         super(context,R.layout.sell_product_list_view_row,resource);
         this.context=context;
         myList = resource;
-        username = "kyle";
-
-        //checklistContent.showList=resource;
-        //itemChecked1 = new ArrayList<Boolean>();
-           /* for (int i = 0; i < checklistContent.showList.size(); i++) {
-                itemChecked1.add(i,checklistContent.showList.get(i).getValue()==0);
-            }
-            */
+        username = "cam";
 
     }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        mySearchActivity.listOfProducts.clear();
+        if (charText.length() == 0) {
+            mySearchActivity.listOfProducts.addAll(myList);
+        } else {
+            for (Product wp : myList) {
+                if (wp.getProductName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    mySearchActivity.listOfProducts.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
@@ -121,15 +133,15 @@ public class listAdapterProductsSell extends ArrayAdapter {
                 productDB = pantryDB.child(nameString);
                 productDB.child("Quantity").setValue(33 - 1);
 
-
-                orderDB = mDatabase.child("Order");
+                //adds the order to the firebase order node
+                /*orderDB = mDatabase.child("Order");
                 orderSellerDB = orderDB.child(ownerString);
                 orderNameDB = orderSellerDB.child(username);
                 orderNameDB.child(nameString).child("Price").setValue(priceDouble);
                 orderNameDB.child(nameString).child("Quantity").setValue(quantityInt);
                 orderNameDB.child(nameString).child("Category").setValue(categoryString);
                 orderNameDB.child(nameString).child("Owner").setValue(ownerString);
-
+                */
 
                 buyerDB = mDatabase.child("Buyer");
                 buyerNameDB = buyerDB.child(username);

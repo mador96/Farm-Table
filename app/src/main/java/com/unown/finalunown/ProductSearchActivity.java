@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,14 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ProductSearchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener{
 
-
-    private ArrayList<Product> listOfProducts;
+    listAdapterProductsSell adapter;
+    ArrayList<Product> listOfProducts;
     private DatabaseReference mDatabase, sellerDB, nameDatabase, inventoryDB;
     //private double locationLat, locationLong;
     private String location;
     ListView lv;
+    android.widget.SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class ProductSearchActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView1);
+        searchView = (android.widget.SearchView) findViewById(R.id.searchView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +73,20 @@ public class ProductSearchActivity extends AppCompatActivity
         listOfProducts = new ArrayList<Product>();
         ReadData();
 
+    }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.filter(text);
+        return false;
     }
 
     public void ReadData() {
@@ -101,10 +117,12 @@ public class ProductSearchActivity extends AppCompatActivity
                                 String quantity = String.valueOf(postSnapshot.child("Quantity").getValue());
                                 String owner = String.valueOf(postSnapshot.child("Owner").getValue());
                                 Product newProd = new Product( productCategory, Double.valueOf(price), productName, Integer.valueOf(quantity), owner);
-                                listOfProducts.add(newProd);
+                                if (!listOfProducts.contains(newProd)){
+                                    listOfProducts.add(newProd);
+                                }
                             }
                             //TODO: change this so that we get the passed username of whoever logs in
-                            listAdapterProductsSell adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, "kyle");
+                            adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, "cam");
                             lv.setAdapter(adapter);
                         }
                         @Override
