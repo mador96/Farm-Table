@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,12 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
     //private ArrayList<Product> cartItems;
@@ -84,7 +78,7 @@ public class CartActivity extends AppCompatActivity {
                     myCart.clear();
                 }
 
-                //listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);
+                //listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart);
                 //list.setAdapter(adapter);
             }
             @Override
@@ -126,7 +120,7 @@ public class CartActivity extends AppCompatActivity {
                 //formatter.format(totalCostInt);
                 totalCost.setText("$" + Double.toString(totalCostInt));
 
-                listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);
+                listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart, "John");
                 list.setAdapter(adapter);
             }
             @Override

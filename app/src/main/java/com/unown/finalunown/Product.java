@@ -11,6 +11,18 @@ public class Product {
     private String productName;
     private int quantity;
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    private String owner;
+
+
+
     public String getProductCategory() {
         return productCategory;
     }
@@ -43,11 +55,12 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(String productCategory, Double price, String productName, int quantity){
+    public Product(String productCategory, Double price, String productName, int quantity, String owner){
         this.productCategory = productCategory;
         this.price = price;
         this.productName = productName;
         this.quantity = quantity;
+        this.owner = owner;
 
     }
 }

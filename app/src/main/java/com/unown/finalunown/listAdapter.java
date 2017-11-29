@@ -3,13 +3,10 @@ package com.unown.finalunown;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class listAdapter extends ArrayAdapter {
         String distance;
         Context context;
         ArrayList<Seller> myList;
-        UserSearchActivity mySearchActivity;
+        ProductSearchActivity mySearchActivity;
 
         public listAdapter(Context context, ArrayList<Seller> resource){
             super(context,R.layout.list_view_row,resource);

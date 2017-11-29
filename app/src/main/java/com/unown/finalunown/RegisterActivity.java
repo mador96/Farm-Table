@@ -2,7 +2,6 @@ package com.unown.finalunown;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,8 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = (EditText) findViewById(R.id.usernameEditText);
         isSellerButton = (RadioButton) findViewById(R.id.yesSellerRadioButton);
         notSellerButton = (RadioButton) findViewById(R.id.noSellerRadioButton);
-        Product apple = new Product("fruit", 0.30, "apple", 1);
-        Product carrot = new Product("vegetable", 0.45, "carrot", 1);
+        Product apple = new Product("fruit", 0.30, "apple", 1, "John");
+        Product carrot = new Product("vegetable", 0.45, "carrot", 1, "sally");
         //inventory.add(apple);
         //inventory.add(carrot);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -135,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
-        Intent intent = new Intent(this, UserSearchActivity.class);
+        Intent intent = new Intent(this, ProductSearchActivity.class);
         startActivity(intent);
 
     }

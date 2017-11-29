@@ -7,15 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
-import java.util.List;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,9 +61,10 @@ public class PantryActivity extends AppCompatActivity {
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
                     theQuantity = String.valueOf(postSnapshot.child("Quantity").getValue());
+                    String owner = String. valueOf(postSnapshot.child("Owner").getValue());
 
                     try {
-                        Product newProduct = new Product(category, Double.parseDouble(productPrice), productName, Integer.parseInt(theQuantity));
+                        Product newProduct = new Product(category, Double.parseDouble(productPrice), productName, Integer.parseInt(theQuantity), owner);
                         myPantry.add(newProduct);
                     }
                     catch(NumberFormatException e){
@@ -98,6 +95,7 @@ public class PantryActivity extends AppCompatActivity {
                 String itemCategoryStr = data.getStringExtra("ITEM_CATEGORY");
                 String itemPriceStr = data.getStringExtra("ITEM_PRICE");
                 String itemQuantityStr = data.getStringExtra("ITEM_QUANTITY");
+                //String itemOwnerStr = data.getStringExtra("ITEM_OWNER");
                 double itemPrice = Double.parseDouble(itemPriceStr);
                 int itemQuantity = Integer.parseInt(itemQuantityStr);
 
@@ -112,9 +110,9 @@ public class PantryActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Price").setValue(itemPrice);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Quantity").setValue(itemQuantity);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
+                mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(username);
 
-
-                Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity);
+                Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity, username);
                 myPantry.add(newProduct);
                 adapter.notifyDataSetChanged();
             }
@@ -125,4 +123,6 @@ public class PantryActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditPantryActivity.class);
         startActivityForResult(intent, 1);
     }
+
+
 }

@@ -17,27 +17,20 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class UserSearchActivity extends AppCompatActivity
+public class ProductSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ArrayList<Seller> listOfSellers;
-    private ArrayList<Seller> listSellers;
-    private List<Product> listOfProducts;
-    private DatabaseReference mDatabase, sellerDB, nameDatabase;
+
+    private ArrayList<Product> listOfProducts;
+    private DatabaseReference mDatabase, sellerDB, nameDatabase, inventoryDB;
     //private double locationLat, locationLong;
     private String location;
     ListView lv;
@@ -46,7 +39,7 @@ public class UserSearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context mContext = this;
-        setContentView(R.layout.activity_user_search);
+        setContentView(R.layout.activity_product_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView1);
@@ -73,19 +66,8 @@ public class UserSearchActivity extends AppCompatActivity
        // listOfSellers = new ArrayList<Seller>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
-        listOfSellers = new ArrayList<Seller>();
+        listOfProducts = new ArrayList<Product>();
         ReadData();
-        /*while (listOfSellers.isEmpty()){
-            Toast.makeText(mContext, "the list is empty in on create", Toast.LENGTH_SHORT).show();
-        }
-        //still trying to fix this because the info from the firebase is having issues
-        //because it's asynchronous so I need a way to look at it only after is has loaded....I think
-        listAdapter adapter = new listAdapter(mContext, listOfSellers);
-        if (!listOfSellers.isEmpty()) {
-            Toast.makeText(mContext, "from list loaded: " + listOfSellers.get(0).getName(), Toast.LENGTH_SHORT).show();
-        }
-        lv.setAdapter(adapter);
-        */
 
 
 
@@ -94,45 +76,46 @@ public class UserSearchActivity extends AppCompatActivity
     public void ReadData() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
-        listSellers = new ArrayList<Seller>();
+        listOfProducts = new ArrayList<Product>();
         sellerDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //Toast.makeText(UserSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
-                   // Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.getValue()), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("locationLatitude").getValue()), Toast.LENGTH_SHORT).show();
-                    //String locationLat = String.valueOf(postSnapshot.child("locationLatitude").getValue());
-                    //String locationLong = String.valueOf(postSnapshot.child("locationLongitude").getValue());
-                    String location = String.valueOf(postSnapshot.child("location").getValue());
-                    String username = String.valueOf(postSnapshot.child("username").getValue());
-                    String name = String.valueOf(postSnapshot.child("name").getValue());
-                    boolean seller = (boolean) postSnapshot.child("seller").getValue();
-                    String numberSales = String.valueOf(postSnapshot.child("numberSales").getValue());
-                    String totalSales = String.valueOf(postSnapshot.child("totalSales").getValue());
-                    String userDescription = String.valueOf(postSnapshot.child("description").getValue());
-                    //Seller mSeller = new Seller(listOfProducts, username, name, userDescription, Double.valueOf(locationLat), Double.valueOf(locationLong), Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
-                    Seller mSeller = new Seller(listOfProducts, username, name, userDescription, location, Double.valueOf(totalSales), Integer.valueOf(numberSales), seller );
 
-                    mSeller.setUsername(username);
-                    mSeller.setName(name);
-                    //mSeller.setLocationLatitude(Double.valueOf(locationLat));
-                    //mSeller.setLocationLongitude(Double.valueOf(locationLong));
-                    mSeller.setLocation(location);
-                    mSeller.setSeller(seller);
-                    listSellers.add(mSeller);
-                    //Toast.makeText(UserSearchActivity.this,"mSeller.getName()" + mSeller.getName(), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(UserSearchActivity.this, "name " + name, Toast.LENGTH_SHORT).show();
-                    //Seller mSeller = new Seller();
-                    //Toast.makeText(UserSearchActivity.this, String.valueOf(postSnapshot.child("name").getValue()), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(UserSearchActivity.this, postSnapshot.getValue(Seller.class).getName(), Toast.LENGTH_SHORT).show();
+                    String name = String.valueOf(postSnapshot.child("name").getValue());
+                    nameDatabase = sellerDB.child(name);
+                    inventoryDB = nameDatabase.child("Inventory");
+                    Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
+
+                    inventoryDB.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                                String productName = String.valueOf(postSnapshot.getKey());
+                                Toast.makeText(ProductSearchActivity.this, productName, Toast.LENGTH_SHORT).show();
+                                String productCategory = String.valueOf(postSnapshot.child("Category").getValue());
+                                String price = String.valueOf(postSnapshot.child("Price").getValue());
+                                String quantity = String.valueOf(postSnapshot.child("Quantity").getValue());
+                                String owner = String.valueOf(postSnapshot.child("Owner").getValue());
+                                Product newProd = new Product( productCategory, Double.valueOf(price), productName, Integer.valueOf(quantity), owner);
+                                listOfProducts.add(newProd);
+                            }
+                            //TODO: change this so that we get the passed username of whoever logs in
+                            listAdapterProductsSell adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, "kyle");
+                            lv.setAdapter(adapter);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError firebaseError) {
+                            Log.e("The read failed: " ,firebaseError.getMessage());
+                        }
+                    });
+
                 }
 
-                listAdapter adapter = new listAdapter(UserSearchActivity.this, listSellers);
-                lv.setAdapter(adapter);
-            }
+                }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
                 Log.e("The read failed: " ,firebaseError.getMessage());

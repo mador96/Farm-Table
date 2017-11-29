@@ -1,7 +1,6 @@
 package com.unown.finalunown;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProfileSellingActivity extends AppCompatActivity {
 
@@ -63,7 +61,7 @@ public class ProfileSellingActivity extends AppCompatActivity {
                     String productName = String.valueOf(postSnapshot.child("name").getValue());
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
-                    Product newProduct = new Product(category, Double.valueOf(productPrice) , productName, 2);
+                    Product newProduct = new Product(category, Double.valueOf(productPrice) , productName, 2, nameString);
                     inventory.add(newProduct);
                     Toast.makeText(ProfileSellingActivity.this, "productName " + productName, Toast.LENGTH_LONG).show();
                     Toast.makeText(ProfileSellingActivity.this, "inventory arraylist name" + inventory.get(0).getProductName(), Toast.LENGTH_SHORT).show();
@@ -72,7 +70,7 @@ public class ProfileSellingActivity extends AppCompatActivity {
 
                 }
 
-                listAdapterProducts adapter = new listAdapterProducts(ProfileSellingActivity.this, inventory);
+                listAdapterProductsSell adapter = new listAdapterProductsSell(ProfileSellingActivity.this, inventory, nameString);
                 lv.setAdapter(adapter);
             }
             @Override

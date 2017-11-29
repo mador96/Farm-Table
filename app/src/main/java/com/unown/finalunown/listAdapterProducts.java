@@ -24,7 +24,7 @@ public class listAdapterProducts extends ArrayAdapter {
     String distance;
     Context context;
     ArrayList<Product> myList;
-    UserSearchActivity mySearchActivity;
+    ProductSearchActivity mySearchActivity;
 
     public listAdapterProducts(Context context, ArrayList<Product> resource){
         super(context,R.layout.list_view_row,resource);
@@ -56,9 +56,7 @@ public class listAdapterProducts extends ArrayAdapter {
             /*
             double lat = myList.get(position).getLocationLatitude();
             double longit = myList.get(position).getLocationLongitude();
-
             String location = (lat +", " + longit);
-
             */
         name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,5 +71,3 @@ public class listAdapterProducts extends ArrayAdapter {
         return convertView;
     }
 }
-
-
