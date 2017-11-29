@@ -47,6 +47,7 @@ public class OrderRequestsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
                 myOrders.remove(position);
+                //test
                 adapter.notifyDataSetChanged();
 
                 /*
