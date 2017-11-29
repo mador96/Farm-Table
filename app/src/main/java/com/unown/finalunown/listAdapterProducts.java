@@ -46,12 +46,15 @@ public class listAdapterProducts extends ArrayAdapter {
         TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
         TextView price = (TextView) convertView.findViewById(R.id.priceTextView);
         TextView quantity = (TextView) convertView.findViewById(R.id.quantityTextView);
+        TextView owner = (TextView) convertView.findViewById(R.id.ownerTextView);
         final String nameString = myList.get(position).getProductName();
         final double priceDouble = myList.get(position).getPrice();
         final int quantityInt = myList.get(position).getQuantity();
+        final String ownerString = myList.get(position).getOwner();
         name.setText(nameString);
         price.setText("$" + Double.toString(priceDouble));
         quantity.setText("x" + Integer.toString(quantityInt));
+        owner.setText(ownerString);
 
             /*
             double lat = myList.get(position).getLocationLatitude();
@@ -65,6 +68,7 @@ public class listAdapterProducts extends ArrayAdapter {
                 intent.putExtra("name", nameString);
                 intent.putExtra("price", priceDouble); //need this?
                 intent.putExtra("quantity", quantityInt); //need this?
+                intent.putExtra("quantity", ownerString);//need this?
                 context.startActivity(intent);
             }
         });

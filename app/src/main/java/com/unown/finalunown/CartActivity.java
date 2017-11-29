@@ -24,7 +24,8 @@ public class CartActivity extends AppCompatActivity {
     TextView totalCost;
     ArrayList<Product> myCart;
     String username;
-    private DatabaseReference mDatabase, buyerDB, userDB, cartDB;
+    String ownertoReceive;
+    private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,15 @@ public class CartActivity extends AppCompatActivity {
 
     public void placeOrder(View view){
         Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
-        //Push order to seller
+        //Send to owner
+        for(Product order: myCart){
+            String ownerName = order.getOwner();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Category").setValue(order.getProductCategory()); //username = username of the person requesting the order
+            mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Price").setValue(order.getPrice());
+            mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Quantity").setValue(order.getQuantity());
+        }
 
-
-        //Clear the cart/delete cart node
         mDatabase = FirebaseDatabase.getInstance().getReference();
         buyerDB = mDatabase.child("Buyer");
         userDB = buyerDB.child(username);
@@ -71,9 +77,8 @@ public class CartActivity extends AppCompatActivity {
         cartDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //DataSnapshot productNames = snapshot.child("Name");
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    //String productName = String.valueOf(postSnapshot.getKey());
+                    //Clear the caxrt/delete cart node and
                     postSnapshot.getRef().removeValue(); //delete cart
                     myCart.clear();
                 }
@@ -104,6 +109,8 @@ public class CartActivity extends AppCompatActivity {
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
                     String theQuantity = String.valueOf(postSnapshot.child("Quantity").getValue());
                     String ownerStr = String.valueOf(postSnapshot.child("Owner").getValue());
+                    ownertoReceive = ownerStr;
+
                     Product newProduct = new Product(category, Double.parseDouble(productPrice) , productName, Integer.parseInt(theQuantity), ownerStr);
                     myCart.add(newProduct);
                 }

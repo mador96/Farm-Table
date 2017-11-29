@@ -26,7 +26,9 @@
         <activity android:name=".ProfileSellingActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".PantryActivity" />
-        <activity android:name=".EditPantryActivity"></activity>
+        <activity android:name=".EditPantryActivity" />
+        <activity android:name=".PastOrdersActivity" />
+        <activity android:name=".OrderRequestsActivity"></activity>
     </application>
 
 </manifest>

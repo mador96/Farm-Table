@@ -8,6 +8,9 @@
         android:id="@+id/sellerNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="89dp"
+        android:layout_toEndOf="@+id/ownerTextView"
         android:text="TextView"
         android:textSize="30sp" />
 
@@ -24,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/distanceTextView"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="69dp"
+        android:layout_toEndOf="@+id/sellerNameTextView"
         android:layout_weight="1"
         android:text="$0.00"
         android:textSize="30dp" />
@@ -34,8 +37,19 @@
         android:id="@+id/quantityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/distanceTextView"
-        android:layout_marginLeft="168dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="51dp"
+        android:layout_toEndOf="@+id/priceTextView"
         android:text="x0"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/ownerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="21dp"
+        android:text="Owner"
         android:textSize="30dp" />
 </RelativeLayout>

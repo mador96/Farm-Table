@@ -56,12 +56,15 @@ public class listAdapter extends ArrayAdapter {
             String location = (lat +", " + longit);
 
             */
+
+
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ProfileSellingActivity.class);
                     intent.putExtra("name", nameString);
                     context.startActivity(intent);
+
                 }
             });
             return convertView;
