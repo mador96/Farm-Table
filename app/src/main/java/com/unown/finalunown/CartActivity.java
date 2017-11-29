@@ -65,6 +65,33 @@ public class CartActivity extends AppCompatActivity {
 
     public void placeOrder(View view){
         Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+        //Push order to seller
+
+
+        //Clear the cart/delete cart node
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        buyerDB = mDatabase.child("Buyer");
+        userDB = buyerDB.child(username);
+        cartDB = userDB.child("Cart");
+        myCart = new ArrayList<Product>();
+        cartDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //DataSnapshot productNames = snapshot.child("Name");
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    //String productName = String.valueOf(postSnapshot.getKey());
+                    postSnapshot.getRef().removeValue(); //delete cart
+                    myCart.clear();
+                }
+
+                //listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);
+                //list.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.e("The read failed: " ,firebaseError.getMessage());
+            }
+        });
     }
 
     public void ReadData(){
@@ -82,7 +109,8 @@ public class CartActivity extends AppCompatActivity {
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
                     String theQuantity = String.valueOf(postSnapshot.child("Quantity").getValue());
-                    Product newProduct = new Product(category, Double.parseDouble(productPrice) , productName, Integer.parseInt(theQuantity));
+                    String ownerStr = String.valueOf(postSnapshot.child("Owner").getValue());
+                    Product newProduct = new Product(category, Double.parseDouble(productPrice) , productName, Integer.parseInt(theQuantity), ownerStr);
                     myCart.add(newProduct);
                 }
 
