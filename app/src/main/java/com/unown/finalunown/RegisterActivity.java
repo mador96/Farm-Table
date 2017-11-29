@@ -144,7 +144,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
-        Intent intent = new Intent(this, ProductSearchActivity.class);
+        //Intent intent = new Intent(this, ProductSearchActivity.class);
+        Intent intent = new Intent (this, ProductSearchActivity.class);
+        intent.putExtra("MY_USERNAME", usernameValue);
         startActivity(intent);
 
     }

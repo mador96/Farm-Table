@@ -1,6 +1,7 @@
 package com.unown.finalunown;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,7 @@ public class ProductSearchActivity extends AppCompatActivity
     private String location;
     ListView lv;
     android.widget.SearchView searchView;
+    String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class ProductSearchActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView1);
         searchView = (android.widget.SearchView) findViewById(R.id.searchView);
+
+        Intent passedIntent = getIntent();
+        currentUser = passedIntent.getStringExtra("MY_USERNAME");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,8 +126,8 @@ public class ProductSearchActivity extends AppCompatActivity
                                     listOfProducts.add(newProd);
                                 }
                             }
-                            //TODO: change this so that we get the passed username of whoever logs in
-                            adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, "cam");
+
+                            adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, currentUser);
                             lv.setAdapter(adapter);
                         }
                         @Override
@@ -181,17 +186,26 @@ public class ProductSearchActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_cart) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this, CartActivity.class);
+            intent.putExtra("MY_USERNAME", currentUser);//pass name of current user
+            startActivity(intent);
+        } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("MY_USERNAME", currentUser);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_Search) {
+            Intent intent = new Intent(this, ProductSearchActivity.class);
+            intent.putExtra("MY_USERNAME", currentUser);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+       // } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        //} else if (id == R.id.nav_share) {
+//
+  //      } else if (id == R.id.nav_send) {
 
         }
 

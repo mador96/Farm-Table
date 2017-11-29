@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,7 +47,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
         super(context,R.layout.sell_product_list_view_row,resource);
         this.context=context;
         myList = resource;
-        username = "cam";
+        username = passedUsername;
 
     }
 
@@ -102,13 +103,42 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(context);
                 alertDialogBuilderUserInput.setView(mView);
                 final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+                userInputDialogEditText.setHint("0-"+quantityInt);
+                //String amountWanted;
                 alertDialogBuilderUserInput
                         .setCancelable(false)
-                        .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
-                                 //amountWanted = userInputDialogEditText.getText().toString();
+                                String amountWanted = userInputDialogEditText.getText().toString();
+                                int quantityRequested = Integer.valueOf(amountWanted);
+                                if (quantityRequested > quantityInt) {
+                                    Toast.makeText(context, "Must request between 0 and " + quantityInt + " items"
+                                            , Toast.LENGTH_SHORT).show();
+                                    dialogBox.cancel();
+                                }
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+                                //get references to the cart of the buyer and pantry of seller so they can be modified
+                                /*sellerDB = mDatabase.child("Seller");
+                                sellerNameDB = sellerDB.child(ownerString);
+                                pantryDB = sellerNameDB.child("Inventory");
+                                productDB = pantryDB.child(nameString);
+                                productDB.child("Quantity").setValue( quantityInt- quantityRequested);
+                                */
 
-                                // ToDo get user input here
+                                buyerDB = mDatabase.child("Buyer");
+                                buyerNameDB = buyerDB.child(username);
+                                cartDB = buyerNameDB.child("Cart");
+
+                                //myPantry = new ArrayList<Product>();
+
+
+                                //TODO: give the option for how many they would like to add to their cart based on how many there are available
+                                cartDB.child(nameString).child("Price").setValue(priceDouble);
+                                cartDB.child(nameString).child("Quantity").setValue(quantityRequested);
+                                cartDB.child(nameString).child("Category").setValue(categoryString);
+                                cartDB.child(nameString).child("Owner").setValue(ownerString);
+
+
                             }
                         })
 
@@ -123,9 +153,8 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 alertDialogAndroid.show();
 
 
-
                 //add item to the buyers cart
-                mDatabase = FirebaseDatabase.getInstance().getReference();
+                /*mDatabase = FirebaseDatabase.getInstance().getReference();
                 //get references to the cart of the buyer and pantry of seller so they can be modified
                 sellerDB = mDatabase.child("Seller");
                 sellerNameDB = sellerDB.child(ownerString);
@@ -142,7 +171,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 orderNameDB.child(nameString).child("Category").setValue(categoryString);
                 orderNameDB.child(nameString).child("Owner").setValue(ownerString);
                 */
-
+/*
                 buyerDB = mDatabase.child("Buyer");
                 buyerNameDB = buyerDB.child(username);
                 cartDB = buyerNameDB.child("Cart");
@@ -160,6 +189,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
 
                 //Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity, username);
                 //myPantry.add(newProduct);
+                */
             }
         });
 
