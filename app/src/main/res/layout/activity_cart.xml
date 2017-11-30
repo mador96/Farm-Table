@@ -21,42 +21,52 @@
         android:id="@+id/placeOrderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:onClick="placeOrder"
-        android:text="Place Order"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="118dp"
+        android:onClick="placeOrder"
+        android:text="Place Order" />
 
     <TextView
         android:id="@+id/totalLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="85dp"
-        android:textSize="30dp"
-        android:text="Total: "
         android:layout_above="@+id/placeOrderButton"
-        android:layout_alignStart="@+id/placeOrderButton" />
+        android:layout_alignEnd="@+id/placeOrderButton"
+        android:layout_marginBottom="61dp"
+        android:text="Total: "
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:text="$0.00"
-        android:textSize="30dp"
         android:layout_alignBaseline="@+id/totalLabel"
         android:layout_alignBottom="@+id/totalLabel"
-        android:layout_toEndOf="@+id/placeOrderButton" />
+        android:layout_alignEnd="@+id/title"
+        android:text="$0.00"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/totalCost"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="48dp"
-        android:layout_marginTop="27dp"
+        android:layout_alignStart="@+id/placeOrderButton"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="18dp"
         android:text="My Cart"
         android:textSize="70dp" />
+
+    <Button
+        android:id="@+id/clearCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/placeOrderButton"
+        android:layout_alignBottom="@+id/placeOrderButton"
+        android:layout_alignStart="@+id/totalCost"
+        android:onClick="clearMyCart"
+        android:text="Clear Cart" />
 
 </RelativeLayout>

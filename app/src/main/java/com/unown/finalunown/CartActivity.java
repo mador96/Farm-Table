@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,11 +22,12 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
     //private ArrayList<Product> cartItems;
     ListView list;
-    Button placeOrderButton;
+    Button placeOrderButton, clearCartButton;
     TextView totalCost;
     ArrayList<Product> myCart;
     String username;
     String ownertoReceive;
+    listAdapterProducts adapter;
     private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB;
 
     @Override
@@ -35,6 +37,7 @@ public class CartActivity extends AppCompatActivity {
 
         list = (ListView) findViewById(android.R.id.list);
         placeOrderButton = (Button) findViewById(R.id.placeOrderButton);
+        clearCartButton = (Button) findViewById(R.id.clearCart);
         totalCost = (TextView) findViewById(R.id.totalCost);
 
         /*
@@ -54,9 +57,46 @@ public class CartActivity extends AppCompatActivity {
         username = passedIntent.getStringExtra("MY_USERNAME");
         ReadData(); //need to return arraylist
         //Toast.makeText(this, myCart.size(), Toast.LENGTH_SHORT).show();
+        adapter = new listAdapterProducts(CartActivity.this, myCart);
+        list.setAdapter(adapter);
+
+        //allow user to click on items to delete from cart
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id){
 
 
+                deleteFromFirebase(myCart.get(position).getProductName(), myCart.get(position).getOwner());
 
+            }
+        });
+
+    }
+
+    public void clearMyCart(View view){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        buyerDB = mDatabase.child("Buyer");
+        userDB = buyerDB.child(username);
+        cartDB = userDB.child("Cart");
+        myCart = new ArrayList<Product>();
+        cartDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    //Clear the caxrt/delete cart node and
+                    postSnapshot.getRef().removeValue(); //delete cart
+                    myCart.clear();
+                }
+
+                //listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart);
+                //list.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.e("The read failed: " ,firebaseError.getMessage());
+            }
+        });
     }
 
     public void placeOrder(View view){
@@ -128,7 +168,7 @@ public class CartActivity extends AppCompatActivity {
                 formatter.format(totalCostInt);
                 totalCost.setText("$" + Double.toString(totalCostInt));
 
-                listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);
+                adapter = new listAdapterProducts(CartActivity.this, myCart);
                 list.setAdapter(adapter);
             }
             @Override
@@ -136,5 +176,16 @@ public class CartActivity extends AppCompatActivity {
                 Log.e("The read failed: " ,firebaseError.getMessage());
             }
         });
+    }
+
+    public void deleteFromFirebase(String productName, String buyerName){
+        /*
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        cartDB = mDatabase.child("Cart");
+        myCart = new ArrayList<Product>();
+
+        cartDB.child(productName).setValue(null);
+        */
+
     }
 }

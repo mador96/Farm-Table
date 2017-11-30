@@ -7,9 +7,16 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String PREFS_NAME2 = "SellerStatusFile";
     private StorageReference storageRef;
     private FirebaseStorage storage;
+    String currentUser;
 
 
     @Override
@@ -70,8 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
         storageRef = storage.getReferenceFromUrl("gs://final-project-final-unown.appspot.com");
 
         //get username from login activity
-        final String myUsername = getIntent().getStringExtra("MY_USERNAME");
-        passingUsername = myUsername;
+        final String currentUser = passedIntent.getStringExtra("MY_USERNAME");
+        passingUsername = currentUser;
 
         //determine if this user is a buyer or a seller
         SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
@@ -96,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot postSnapshot: snapshot.getChildren()) {
-                   if(myUsername.equals(String.valueOf(postSnapshot.child("username").getValue()))) { //if person's username == username in the database
+                   if(currentUser.equals(String.valueOf(postSnapshot.child("username").getValue()))) { //if person's username == username in the database
                        //get the info associated with that username
                        name.setText(String.valueOf(postSnapshot.child("name").getValue()));
                        nameStr = String.valueOf(postSnapshot.child("name").getValue());
@@ -116,7 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //Load profile picture from firebase
-        StorageReference myImage = storageRef.child(myUsername).child(myUsername + ".jpg");
+        StorageReference myImage = storageRef.child(currentUser).child(currentUser + ".jpg");
 
         myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -193,4 +201,5 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
+
 }

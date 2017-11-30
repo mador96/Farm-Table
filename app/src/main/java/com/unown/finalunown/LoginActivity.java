@@ -50,14 +50,14 @@ public class LoginActivity extends AppCompatActivity {
             String sellerYesNo = sellerStatus.getString(usernameValue, null);
             //Bring to home page
             if(sellerYesNo.matches("Yes")) {
-                Intent intent = new Intent(this, ProfileActivity.class);
+                Intent intent = new Intent(this, ProductSearchActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }
             else{
                 //Intent intent = new Intent(this, ProfileActivity.class);
                 //temporary change for testing:
-                Intent intent = new Intent(this, ProfileActivity.class);
+                Intent intent = new Intent(this, ProductSearchActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }

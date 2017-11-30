@@ -21,11 +21,12 @@
         android:id="@+id/nameLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/locationLabelTextView"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="30dp"
+        android:layout_toStartOf="@+id/profilePicture"
         android:text="Name:"
-        android:layout_below="@+id/profilePicture"
-        android:layout_toStartOf="@+id/editButton"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="100dp" />
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/locationLabelTextView"
@@ -33,7 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Location:"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/nameLabelTextView" />
+        android:layout_alignStart="@+id/nameLabelTextView"
+        android:textSize="30dp"/>
 
     <TextView
         android:id="@+id/descriptionLabelTextView"
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content"
         android:text="Description:"
         android:layout_marginTop="75dp"
+        android:textSize="30dp"
         android:layout_below="@+id/locationLabelTextView"
         android:layout_alignStart="@+id/locationLabelTextView" />
 
@@ -50,25 +53,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp"
-        android:text="Edit Profile"
-        android:onClick="editProfile" />
+        android:layout_marginBottom="78dp"
+        android:onClick="editProfile"
+        android:text="Edit Profile" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Name"
-        android:layout_marginStart="14dp"
         android:layout_alignBaseline="@+id/nameLabelTextView"
         android:layout_alignBottom="@+id/nameLabelTextView"
-        android:layout_toEndOf="@+id/editButton" />
+        android:layout_alignStart="@+id/editButton"
+        android:layout_marginStart="47dp"
+        android:text="My Name"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Location"
+        android:textSize="30dp"
         android:layout_above="@+id/descriptionLabelTextView"
         android:layout_alignStart="@+id/nameTextView" />
 
@@ -78,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="My Description..."
+        android:textSize="30dp"
         android:layout_alignTop="@+id/descriptionLabelTextView"
         android:layout_alignStart="@+id/descriptionLabelTextView" />
 
