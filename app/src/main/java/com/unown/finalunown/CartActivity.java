@@ -65,10 +65,10 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
-
-
                 deleteFromFirebase(myCart.get(position).getProductName(), myCart.get(position).getOwner());
-
+                //myCart.remove(position);
+                // adapter.notifyDataSetChanged();
+                //update cost!
             }
         });
 
@@ -165,9 +165,6 @@ public class CartActivity extends AppCompatActivity {
                     int amount = item.getQuantity();
                     totalCostInt = totalCostInt + (price*amount);
                 }
-                //Set total cost for text view... two decimals???
-                //DecimalFormat formatter = new DecimalFormat("####.00");
-                //formatter.format(totalCostInt);
                 String totalReformat = String.format("%.2f", totalCostInt);
                 totalCost.setText("$" + totalReformat);
 
@@ -182,13 +179,11 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void deleteFromFirebase(String productName, String buyerName){
-        /*
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        cartDB = mDatabase.child("Cart");
-        myCart = new ArrayList<Product>();
-
+        cartDB = mDatabase.child("Buyer").child(buyerName).child("Cart");
+        //myCart = new ArrayList<Product>();
         cartDB.child(productName).setValue(null);
-        */
+
 
     }
 }
