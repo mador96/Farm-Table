@@ -52,7 +52,8 @@ public class listAdapterProducts extends ArrayAdapter {
         final int quantityInt = myList.get(position).getQuantity();
         final String ownerString = myList.get(position).getOwner();
         name.setText(nameString);
-        price.setText("$" + Double.toString(priceDouble));
+        String priceReformat = String.format("%.2f", priceDouble);
+        price.setText("$" + priceReformat);
         quantity.setText("x" + Integer.toString(quantityInt));
         owner.setText("Seller: " + ownerString);
 

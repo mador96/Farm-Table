@@ -82,7 +82,8 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
         final String categoryString = myList.get(position).getProductCategory();
         nameTextView.setText(nameString);
         sellerTextView.setText(ownerString);
-        priceTextView.setText("$" + String.valueOf(priceDouble));
+        String priceReformat = String.format("%.2f", priceDouble);
+        priceTextView.setText("$" + priceReformat);
             /*
             double lat = myList.get(position).getLocationLatitude();
             double longit = myList.get(position).getLocationLongitude();

@@ -152,7 +152,9 @@ public class CartActivity extends AppCompatActivity {
                     String ownerStr = String.valueOf(postSnapshot.child("Owner").getValue());
                     ownertoReceive = ownerStr;
 
-                    Product newProduct = new Product(category, Double.parseDouble(productPrice) , productName, Integer.parseInt(theQuantity), ownerStr);
+                    String priceReformat = String.format("%.2f", Double.parseDouble(productPrice));
+
+                    Product newProduct = new Product(category, Double.parseDouble(priceReformat) , productName, Integer.parseInt(theQuantity), ownerStr);
                     myCart.add(newProduct);
                 }
 
@@ -164,9 +166,10 @@ public class CartActivity extends AppCompatActivity {
                     totalCostInt = totalCostInt + (price*amount);
                 }
                 //Set total cost for text view... two decimals???
-                DecimalFormat formatter = new DecimalFormat("####.00");
-                formatter.format(totalCostInt);
-                totalCost.setText("$" + Double.toString(totalCostInt));
+                //DecimalFormat formatter = new DecimalFormat("####.00");
+                //formatter.format(totalCostInt);
+                String totalReformat = String.format("%.2f", totalCostInt);
+                totalCost.setText("$" + totalReformat);
 
                 adapter = new listAdapterProducts(CartActivity.this, myCart);
                 list.setAdapter(adapter);
