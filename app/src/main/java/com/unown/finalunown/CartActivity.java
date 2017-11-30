@@ -59,6 +59,7 @@ public class CartActivity extends AppCompatActivity {
         //Toast.makeText(this, myCart.size(), Toast.LENGTH_SHORT).show();
         adapter = new listAdapterProducts(CartActivity.this, myCart);
         list.setAdapter(adapter);
+        /*
 
         //allow user to click on items to delete from cart
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -71,6 +72,7 @@ public class CartActivity extends AppCompatActivity {
                 //update cost!
             }
         });
+        */
 
     }
 
@@ -178,6 +180,7 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public void deleteFromFirebase(String productName, String buyerName){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         cartDB = mDatabase.child("Buyer").child(buyerName).child("Cart");
@@ -186,4 +189,5 @@ public class CartActivity extends AppCompatActivity {
 
 
     }
+    */
 }

@@ -60,7 +60,7 @@ public class ProductSearchActivity extends AppCompatActivity
         currentUser = passedIntent.getStringExtra("MY_USERNAME");
 
 
- 
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
