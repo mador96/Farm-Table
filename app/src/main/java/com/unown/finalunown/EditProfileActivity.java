@@ -58,6 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
     Uri uri;
     Uri filePath;
     boolean cameraUsed;
+    boolean pictureUpdated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //initialize fields
         cameraUsed = false;
+        pictureUpdated = false;
         saveButton = (Button) findViewById(R.id.saveButton);
         takePictureButton = (Button) findViewById(R.id.takePictureButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
@@ -195,6 +197,7 @@ public class EditProfileActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 profilePicture.setImageURI(file);
                 cameraUsed = true;
+                pictureUpdated = true;
             }
         }
         else if (requestCode == PICK_IMAGE_REQUEST) {
@@ -206,7 +209,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     ImageView profilePicture = (ImageView) findViewById(R.id.profilePicture);
                     profilePicture.setImageBitmap(bitmap);
                     cameraUsed = false;
-
+                    pictureUpdated = true;
                 }
                 catch(IOException e){
                     e.printStackTrace();
@@ -228,34 +231,33 @@ public class EditProfileActivity extends AppCompatActivity {
     public void uploadToFirebase(){
         //upload camera capture to Firebase?
         Uri myFile;
+        if(pictureUpdated == true) {
+            //Upload from stored photos to firebase
+            if (cameraUsed == true) {
+                myFile = file;
+            } else {
+                myFile = filePath;
+            }
+            StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
 
-        //Upload from stored photos to firebase
-        if(cameraUsed == true){
-            myFile = file;
+            myImage.putFile(myFile)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            // Get a URL to the uploaded content
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                            Toast.makeText(EditProfileActivity.this, "Upload Failed -> " + exception, Toast.LENGTH_LONG).show();
+
+                        }
+                    });
         }
-        else{
-            myFile = filePath;
-        }
-        StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
-
-        myImage.putFile(myFile)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(EditProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-
-                        // Get a URL to the uploaded content
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                        Toast.makeText(EditProfileActivity.this, "Upload Failed -> " + exception, Toast.LENGTH_LONG).show();
-
-                    }
-                });
     }
 }
