@@ -24,23 +24,30 @@ public class EditPantryActivity extends AppCompatActivity {
         quantityET = (EditText) findViewById(R.id.quantityEditText);
         addNewItem = (Button) findViewById(R.id.addnewItem);
 
-        addNewItem.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                String itemName = nameET.getText().toString();
-                String itemCategory = categoryET.getText().toString();
-                String itemPrice = priceET.getText().toString();
-                String itemQuantity = quantityET.getText().toString();
+        try {
+            addNewItem.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    String itemName = nameET.getText().toString();
+                    String itemCategory = categoryET.getText().toString();
+                    String itemPrice = priceET.getText().toString();
+                    String itemQuantity = quantityET.getText().toString();
+                    Double.parseDouble(itemPrice);
+                    Integer.parseInt(itemQuantity);
 
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("ITEM_NAME", itemName);
-                returnIntent.putExtra("ITEM_CATEGORY", itemCategory);
-                returnIntent.putExtra("ITEM_PRICE", itemPrice);
-                returnIntent.putExtra("ITEM_QUANTITY", itemQuantity);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("ITEM_NAME", itemName);
+                    returnIntent.putExtra("ITEM_CATEGORY", itemCategory);
+                    returnIntent.putExtra("ITEM_PRICE", itemPrice);
+                    returnIntent.putExtra("ITEM_QUANTITY", itemQuantity);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
 
-            }
-        });
+                }
+            });
+        }
+        catch(NumberFormatException e){
+            Toast.makeText(this, "Quantity and Price must be numeric inputs", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

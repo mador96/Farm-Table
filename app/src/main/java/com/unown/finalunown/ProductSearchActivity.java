@@ -106,7 +106,7 @@ public class ProductSearchActivity extends AppCompatActivity
         sellerDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Toast.makeText(ProductSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ProductSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
@@ -114,14 +114,14 @@ public class ProductSearchActivity extends AppCompatActivity
                     String name = String.valueOf(postSnapshot.child("name").getValue());
                     nameDatabase = sellerDB.child(name);
                     inventoryDB = nameDatabase.child("Inventory");
-                    Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
 
                     inventoryDB.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                                 String productName = String.valueOf(postSnapshot.getKey());
-                                Toast.makeText(ProductSearchActivity.this, productName, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ProductSearchActivity.this, productName, Toast.LENGTH_SHORT).show();
                                 String productCategory = String.valueOf(postSnapshot.child("Category").getValue());
                                 String price = String.valueOf(postSnapshot.child("Price").getValue());
                                 String quantity = String.valueOf(postSnapshot.child("Quantity").getValue());

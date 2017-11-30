@@ -89,13 +89,13 @@ public class RegisterActivity extends AppCompatActivity {
             editor.commit();
 
             if (notSellerButton.isChecked()){
-                Toast.makeText(this, "not Seller button checked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "not Seller button checked", Toast.LENGTH_SHORT).show();
                 //mUser = new Buyer(cart, usernameValue, "","",0.0,0.0,listOfRecent,false);
                 mUser = new Buyer(cart, usernameValue, "","","",listOfRecent,false);
                 sellerYesNo = "No";
             }
             if (isSellerButton.isChecked()){
-                Toast.makeText(this, "is seller button checked", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "is seller button checked", Toast.LENGTH_SHORT).show();
                 //mUser = new Seller(inventory, usernameValue, "","", 0.0,0.0,0,0,true);
                 mUser = new Seller(inventory, usernameValue, "","", "",0,0,true);
                 sellerYesNo = "Yes";
@@ -105,10 +105,10 @@ public class RegisterActivity extends AppCompatActivity {
             SharedPreferences.Editor editor2 = sellerStatus.edit();
             editor2.putString(usernameValue, sellerYesNo);
             editor2.commit();
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show(); //remove
+            //Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show(); //remove
 
             mUser.setName(usernameEditText.getText().toString());
-            Toast.makeText(this, mUser.getName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, mUser.getName(), Toast.LENGTH_SHORT).show();
             if(mUser.isSeller){
                 mDatabase.child("Seller").child(mUser.getName()).setValue(mUser);
                 mDatabase.child("Seller").child(mUser.getName()).child("Inventory").child("Tomato");

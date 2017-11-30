@@ -71,14 +71,13 @@ public class PantryActivity extends AppCompatActivity {
 
 
         Intent passedIntent = getIntent();
-        //username = passedIntent.getStringExtra("MY_USERNAME");
+        username = passedIntent.getStringExtra("MY_USERNAME");
         //TODO: fix the above make sure it gets the username of whoever is using the app
-        username = "cam";
         myContent = new PantrySQLContent(context);
         myPantry = new ArrayList<>();
 
         if (savedInstanceState==null && cursor.moveToFirst()) {
-            Toast.makeText(this.getApplicationContext(), "in the first if stateemnet", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), "in the first if stateemnet", Toast.LENGTH_SHORT).show();
             myPantry = myContent.readDB(db, cursor, myPantry, username);
             myContent.updateDB(db, myDbHelper, myPantry, "pantry");
         } else if (cursor.moveToFirst()) {
@@ -122,13 +121,14 @@ public class PantryActivity extends AppCompatActivity {
                 productDB.child("Owner").setValue(curr.getOwner());
                 productDB.child("Quantity").setValue(curr.getQuantity());
             }
+        Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show();
     }
 
     public void readData(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
         //userDB = sellerDB.child(username);
-        userDB = sellerDB.child("cam");
+        userDB = sellerDB.child(username);
         pantryDB = userDB.child("Inventory");
         myPantry = new ArrayList<Product>();
 
@@ -185,8 +185,23 @@ public class PantryActivity extends AppCompatActivity {
                 Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity, username);
                 if (!myPantry.contains(newProduct)){
                     myPantry.add(newProduct);
+
+                    //add new item to firebase
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    sellerDB = mDatabase.child("Seller");
+                    userDB = sellerDB.child(username);
+                    pantryDB = userDB.child("Inventory");
+                    myPantry = new ArrayList<Product>();
+
+                    mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr);
+                    mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Price").setValue(itemPrice);
+                    mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Quantity").setValue(itemQuantity);
+                    mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
+                    mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Owner").setValue(username);
+                    //finished adding new item to firebase
+
                     for (int i = 0; i < myPantry.size(); i++){
-                        Toast.makeText(this.getApplicationContext(), myPantry.get(i).getProductName(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this.getApplicationContext(), myPantry.get(i).getProductName(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 myContent.updateDB(db, myDbHelper, myPantry, "pantry");
@@ -223,7 +238,7 @@ public class PantryActivity extends AppCompatActivity {
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Price").setValue(itemPrice);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Quantity").setValue(itemQuantity);
                 mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
-                mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(username);
+                mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Owner").setValue(username);
 
                 Product newProduct = new Product(itemCategoryStr, itemPrice, itemNameStr, itemQuantity, username);
                 myPantry.add(newProduct);

@@ -23,9 +23,9 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
         //Load shared preferences
         SharedPreferences credentials = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = credentials.edit();
-        editor.putString("admin", "admin"); //default admin login
-        editor.commit();
+        //SharedPreferences.Editor editor = credentials.edit();
+        //editor.putString("admin", "admin"); //default admin login
+        //editor.commit();
 
         usernameET = (EditText) findViewById(R.id.usernameEditText);
         passwordET = (EditText) findViewById(R.id.passwordEditText);
@@ -44,19 +44,16 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
         }
         else{ //remove
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-
             SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
             String sellerYesNo = sellerStatus.getString(usernameValue, null);
             //Bring to home page
             if(sellerYesNo.matches("Yes")) {
-                Intent intent = new Intent(this, ProductSearchActivity.class);
+                //Intent intent = new Intent(this, ProductSearchActivity.class);
+                Intent intent = new Intent(this, PantryActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }
             else{
-                //Intent intent = new Intent(this, ProfileActivity.class);
-                //temporary change for testing:
                 Intent intent = new Intent(this, ProductSearchActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);

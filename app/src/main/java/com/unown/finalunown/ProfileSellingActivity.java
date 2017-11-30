@@ -54,17 +54,17 @@ public class ProfileSellingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
-                Toast.makeText(ProfileSellingActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ProfileSellingActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
-                    Toast.makeText(ProfileSellingActivity.this, "number of items: " + String.valueOf(postSnapshot.getValue()), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ProfileSellingActivity.this, "number of items: " + String.valueOf(postSnapshot.getValue()), Toast.LENGTH_SHORT).show();
                     String productName = String.valueOf(postSnapshot.child("name").getValue());
                     String productPrice = String.valueOf(postSnapshot.child("Price").getValue());
                     String category = String.valueOf(postSnapshot.child("Category").getValue());
                     Product newProduct = new Product(category, Double.valueOf(productPrice) , productName, 2, nameString);
                     inventory.add(newProduct);
-                    Toast.makeText(ProfileSellingActivity.this, "productName " + productName, Toast.LENGTH_LONG).show();
-                    Toast.makeText(ProfileSellingActivity.this, "inventory arraylist name" + inventory.get(0).getProductName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ProfileSellingActivity.this, "productName " + productName, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(ProfileSellingActivity.this, "inventory arraylist name" + inventory.get(0).getProductName(), Toast.LENGTH_SHORT).show();
 
 
 

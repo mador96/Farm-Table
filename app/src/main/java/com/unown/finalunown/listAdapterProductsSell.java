@@ -102,21 +102,24 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(context);
                 alertDialogBuilderUserInput.setView(mView);
                 final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
-                userInputDialogEditText.setHint("0-"+quantityInt);
+                userInputDialogEditText.setHint("1-"+quantityInt);
+
                 //String amountWanted;
                 alertDialogBuilderUserInput
                         .setCancelable(false)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
                                 String amountWanted = userInputDialogEditText.getText().toString();
-                                int quantityRequested = Integer.valueOf(amountWanted);
-                                if (quantityRequested > quantityInt) {
-                                    Toast.makeText(context, "Must request between 0 and " + quantityInt + " items"
-                                            , Toast.LENGTH_SHORT).show();
-                                    dialogBox.cancel();
-                                } else {
-                                    mDatabase = FirebaseDatabase.getInstance().getReference();
-                                    //get references to the cart of the buyer and pantry of seller so they can be modified
+                                try {
+                                    int quantityRequested = Integer.valueOf(amountWanted);
+
+                                    if (quantityRequested <= 0 || quantityRequested > quantityInt) {
+                                        Toast.makeText(context, "Must request between 1 and " + quantityInt + " items"
+                                                , Toast.LENGTH_SHORT).show();
+                                        dialogBox.cancel();
+                                    } else {
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        //get references to the cart of the buyer and pantry of seller so they can be modified
                                 /*sellerDB = mDatabase.child("Seller");
                                 sellerNameDB = sellerDB.child(ownerString);
                                 pantryDB = sellerNameDB.child("Inventory");
@@ -124,19 +127,23 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                                 productDB.child("Quantity").setValue( quantityInt- quantityRequested);
                                 */
 
-                                    buyerDB = mDatabase.child("Buyer");
-                                    buyerNameDB = buyerDB.child(username);
-                                    cartDB = buyerNameDB.child("Cart");
+                                        buyerDB = mDatabase.child("Buyer");
+                                        buyerNameDB = buyerDB.child(username);
+                                        cartDB = buyerNameDB.child("Cart");
 
-                                    //myPantry = new ArrayList<Product>();
+                                        //myPantry = new ArrayList<Product>();
 
 
-                                    //TODO: give the option for how many they would like to add to their cart based on how many there are available
-                                    cartDB.child(nameString).child("Price").setValue(priceDouble);
-                                    cartDB.child(nameString).child("Quantity").setValue(quantityRequested);
-                                    cartDB.child(nameString).child("Category").setValue(categoryString);
-                                    cartDB.child(nameString).child("Owner").setValue(ownerString);
+                                        //TODO: give the option for how many they would like to add to their cart based on how many there are available
+                                        cartDB.child(nameString).child("Price").setValue(priceDouble);
+                                        cartDB.child(nameString).child("Quantity").setValue(quantityRequested);
+                                        cartDB.child(nameString).child("Category").setValue(categoryString);
+                                        cartDB.child(nameString).child("Owner").setValue(ownerString);
 
+                                    }
+                                }
+                                catch(NumberFormatException e){
+                                    Toast.makeText(context, "Input must be a number", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
