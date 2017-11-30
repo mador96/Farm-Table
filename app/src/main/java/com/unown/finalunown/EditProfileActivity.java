@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +41,7 @@ public class EditProfileActivity extends AppCompatActivity {
     static final int TAKE_PHOTO_PERMISSION = 1;
     static final int REQUEST_TAKE_PHOTO = 2;
     static final int PICK_IMAGE_REQUEST = 3;
+    private static final int REQUEST_EXTERNAL_STORAGE = 4;
     private DatabaseReference mDatabase;
     User mUser;
     String nameStr;
@@ -54,6 +56,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     Uri file;
     Uri uri;
+    Uri filePath;
+    boolean cameraUsed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
         //initialize fields
+        cameraUsed = false;
         saveButton = (Button) findViewById(R.id.saveButton);
         takePictureButton = (Button) findViewById(R.id.takePictureButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
@@ -83,9 +88,24 @@ public class EditProfileActivity extends AppCompatActivity {
         descriptionET.setText(descriptionStr);
         locationET.setText(locationStr);
 
+        //Firebase image for profile picture
+        StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
+        myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                Glide.with(getApplicationContext()).load(uri).into(profilePicture);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            }
+        });
+
         // We are giving you the code that checks for permissions
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            takePictureButton.setEnabled(false);
+            takePictureButton.setEnabled(true);
             ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, TAKE_PHOTO_PERMISSION);
         }
 
@@ -174,16 +194,18 @@ public class EditProfileActivity extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if(resultCode == RESULT_OK) {
                 profilePicture.setImageURI(file);
+                cameraUsed = true;
             }
         }
         else if (requestCode == PICK_IMAGE_REQUEST) {
             //Add here.
             if(resultCode == RESULT_OK && data != null && data.getData() != null){
-                uri = data.getData();
+                filePath = data.getData();
                 try{
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     ImageView profilePicture = (ImageView) findViewById(R.id.profilePicture);
                     profilePicture.setImageBitmap(bitmap);
+                    cameraUsed = false;
 
                 }
                 catch(IOException e){
@@ -204,33 +226,19 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public void uploadToFirebase(){
-
-        /*
-        //method to upload storage image to FireBase
-        if(uri != null){
-            Toast.makeText(this, "image exists!", Toast.LENGTH_SHORT).show();
-            StorageReference childRef = storageRef; //username -> image
-
-            //uploading the image
-            UploadTask uploadTask = childRef.putFile(uri);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-        */
         //upload camera capture to Firebase?
-        Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-        StorageReference myImage = storageRef.child("images/rivers.jpg");
+        Uri myFile;
 
-        myImage.putFile(file)
+        //Upload from stored photos to firebase
+        if(cameraUsed == true){
+            myFile = file;
+        }
+        else{
+            myFile = filePath;
+        }
+        StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
+
+        myImage.putFile(myFile)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

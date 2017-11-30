@@ -3,13 +3,19 @@ package com.unown.finalunown;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,20 +23,33 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import com.google.firebase.firebase_core.*;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 
 public class ProfileActivity extends AppCompatActivity {
     User mUser;
     TextView name, location, description;
     String nameStr, locationStr, descriptionStr;
+    ImageView profilePicture;
     private ArrayList<Seller> listOfSellers;
     private ArrayList<Buyer> listOfBuyers;
     private DatabaseReference mDatabase, theDB;
     String passingUsername = null;
     public static final String PREFS_NAME2 = "SellerStatusFile";
+    private StorageReference storageRef;
+    private FirebaseStorage storage;
 
 
     @Override
@@ -44,6 +63,11 @@ public class ProfileActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.nameTextView);
         location = (TextView) findViewById(R.id.locationTextView);
         description = (TextView) findViewById(R.id.descriptionTextView);
+        profilePicture = (ImageView) findViewById(R.id.profilePicture);
+
+        //Firebase
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReferenceFromUrl("gs://final-project-final-unown.appspot.com");
 
         //get username from login activity
         final String myUsername = getIntent().getStringExtra("MY_USERNAME");
@@ -67,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
+
         theDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -75,12 +100,10 @@ public class ProfileActivity extends AppCompatActivity {
                        //get the info associated with that username
                        name.setText(String.valueOf(postSnapshot.child("name").getValue()));
                        nameStr = String.valueOf(postSnapshot.child("name").getValue());
-                       description.setText(String.valueOf(postSnapshot.child("description").getValue()));  //this is messing up format?
+                       description.setText(String.valueOf(postSnapshot.child("description").getValue()));
                        descriptionStr = String.valueOf(postSnapshot.child("description").getValue());
                        location.setText(String.valueOf(postSnapshot.child("location").getValue()));
                        locationStr = String.valueOf(postSnapshot.child("location").getValue());
-                       //How to get parent of the node i located so i can get the rest of the info?
-
                    }
                }
             }
@@ -89,6 +112,22 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError firebaseError) {
                 Log.e("The read failed: " ,firebaseError.getMessage());
+            }
+        });
+
+        //Load profile picture from firebase
+        StorageReference myImage = storageRef.child(myUsername).child(myUsername + ".jpg");
+
+        myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                Glide.with(getApplicationContext()).load(uri).into(profilePicture);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
             }
         });
 
@@ -115,7 +154,21 @@ public class ProfileActivity extends AppCompatActivity {
                 name.setText(returnedName);
                 location.setText(returnedLocation);
                 description.setText(returnedDescription);
-                //how to set image? and store that image in firebase?
+
+                StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
+
+                myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Glide.with(getApplicationContext()).load(uri).into(profilePicture);
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                        }
+                    });
 
                 //how to update firebase
                 theDB.addValueEventListener(new ValueEventListener() {
