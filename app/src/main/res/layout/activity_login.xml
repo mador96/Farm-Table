@@ -6,72 +6,65 @@
     android:layout_height="match_parent"
     tools:context="com.unown.finalunown.LoginActivity">
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="@color/loginPage"
+        android:layout_above="@+id/listView1"
+        android:layout_below="@+id/searchEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="0dp"
+        />
+
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/passwordEditText"
-        android:layout_below="@+id/titleTextView"
-        android:layout_marginTop="138dp"
+        android:layout_marginTop="53dp"
         android:ems="10"
         android:hint="Username"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_below="@+id/divider"
+        android:layout_alignStart="@+id/passwordEditText" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textVisiblePassword" />
+        android:inputType="textVisiblePassword"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/registerButton"
-        android:layout_below="@+id/passwordEditText"
-        android:layout_marginTop="69dp"
         android:background="@color/colorPrimary"
         android:onClick="loadFromSharedPreferences"
         android:text="Login"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/facebookButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="@android:color/holo_blue_dark"
-        android:text="Login with Facebook"
         android:textSize="18sp"
-        android:layout_below="@+id/loginButton"
-        android:layout_alignEnd="@+id/titleTextView" />
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_alignStart="@+id/passwordEditText" />
 
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
         android:background="@color/colorPrimary"
         android:onClick="openRegistration"
         android:text="Register"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="- OR -"
-        android:layout_below="@+id/facebookButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/loginButton"
+        android:layout_alignBottom="@+id/loginButton"
+        android:layout_alignEnd="@+id/passwordEditText" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -79,8 +72,19 @@
         android:layout_height="wrap_content"
         android:text="Farm Table"
         android:textSize="40dp"
-        android:layout_marginTop="74dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        app:srcCompat="@drawable/other_farm"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

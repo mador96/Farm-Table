@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity {
@@ -123,8 +124,8 @@ public class CartActivity extends AppCompatActivity {
                     totalCostInt = totalCostInt + (price*amount);
                 }
                 //Set total cost for text view... two decimals???
-                //DecimalFormat formatter = new DecimalFormat("####.00");
-                //formatter.format(totalCostInt);
+                DecimalFormat formatter = new DecimalFormat("####.00");
+                formatter.format(totalCostInt);
                 totalCost.setText("$" + Double.toString(totalCostInt));
 
                 listAdapterProducts adapter = new listAdapterProducts(CartActivity.this, myCart);

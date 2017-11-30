@@ -1,12 +1,9 @@
 package com.unown.finalunown;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,36 +26,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class ProductSearchActivity extends AppCompatActivity
+public class SearchedProductActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    String searchedProduct;
     listAdapterProductsSell adapter;
     ArrayList<Product> listOfProducts;
     private DatabaseReference mDatabase, sellerDB, nameDatabase, inventoryDB;
     //private double locationLat, locationLong;
     private String location;
     ListView lv;
-    ImageButton searchButton;
-    EditText searchedItemEditText;
     String currentUser;
-    TextView headerUsername;
+    TextView header, headerUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context mContext = this;
-        setContentView(R.layout.activity_product_search);
+        setContentView(R.layout.activity_searched_product);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        lv = (ListView) findViewById(R.id.listView1);
-        searchButton = (ImageButton) findViewById(R.id.imageButton);
-        searchedItemEditText = (EditText) findViewById(R.id.searchEditText);
-
-        Intent passedIntent = getIntent();
-        currentUser = passedIntent.getStringExtra("MY_USERNAME");
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,32 +68,23 @@ public class ProductSearchActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // this is my code below above is just stuff for having the slideout
-       // listOfSellers = new ArrayList<Seller>();
+        lv = (ListView) findViewById(R.id.listView1);
+        header = (TextView) findViewById(R.id.searchResultsHeader);
+
+
+        Intent passedIntent = getIntent();
+        searchedProduct = passedIntent.getStringExtra("SEARCH_PRODUCT");
+        currentUser = passedIntent.getStringExtra("MY_USERNAME");
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         sellerDB = mDatabase.child("Seller");
         listOfProducts = new ArrayList<Product>();
+        header.setText("Search results for: " + searchedProduct);
         ReadData();
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchForProduct();
-            }
-
-        });
 
     }
 
-
-    public void searchForProduct() {
-        String searchProduct = searchedItemEditText.getText().toString();
-        Intent intent = new Intent(this, SearchedProductActivity.class);
-        intent.putExtra("SEARCH_PRODUCT", searchProduct);
-        intent.putExtra("MY_USERNAME", currentUser);
-        startActivity(intent);
-
-    }
 
 
     public void ReadData() {
@@ -113,7 +94,7 @@ public class ProductSearchActivity extends AppCompatActivity
         sellerDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Toast.makeText(ProductSearchActivity.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Sea.this, "count: " + String.valueOf(snapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
@@ -121,25 +102,25 @@ public class ProductSearchActivity extends AppCompatActivity
                     String name = String.valueOf(postSnapshot.child("name").getValue());
                     nameDatabase = sellerDB.child(name);
                     inventoryDB = nameDatabase.child("Inventory");
-                    Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
 
                     inventoryDB.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                                 String productName = String.valueOf(postSnapshot.getKey());
-                                Toast.makeText(ProductSearchActivity.this, productName, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ProductSearchActivity.this, productName, Toast.LENGTH_SHORT).show();
                                 String productCategory = String.valueOf(postSnapshot.child("Category").getValue());
                                 String price = String.valueOf(postSnapshot.child("Price").getValue());
                                 String quantity = String.valueOf(postSnapshot.child("Quantity").getValue());
                                 String owner = String.valueOf(postSnapshot.child("Owner").getValue());
                                 Product newProd = new Product( productCategory, Double.valueOf(price), productName, Integer.valueOf(quantity), owner);
-                                if (!listOfProducts.contains(newProd)){
+                                if (!listOfProducts.contains(newProd) && newProd.getProductName().equals(searchedProduct)){
                                     listOfProducts.add(newProd);
                                 }
                             }
 
-                            adapter = new listAdapterProductsSell(ProductSearchActivity.this, listOfProducts, currentUser);
+                            adapter = new listAdapterProductsSell(SearchedProductActivity.this, listOfProducts, currentUser);
                             lv.setAdapter(adapter);
                         }
                         @Override
@@ -150,7 +131,7 @@ public class ProductSearchActivity extends AppCompatActivity
 
                 }
 
-                }
+            }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
                 Log.e("The read failed: " ,firebaseError.getMessage());
@@ -158,7 +139,6 @@ public class ProductSearchActivity extends AppCompatActivity
         });
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -173,7 +153,7 @@ public class ProductSearchActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_search, menu);
+        getMenuInflater().inflate(R.menu.searched_product, menu);
         return true;
     }
 
@@ -213,11 +193,11 @@ public class ProductSearchActivity extends AppCompatActivity
             intent.putExtra("MY_USERNAME", currentUser);
             startActivity(intent);
 
-       // } else if (id == R.id.nav_manage) {
+            // } else if (id == R.id.nav_manage) {
 
-        //} else if (id == R.id.nav_share) {
+            //} else if (id == R.id.nav_share) {
 //
-  //      } else if (id == R.id.nav_send) {
+            //      } else if (id == R.id.nav_send) {
 
         }
 

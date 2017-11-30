@@ -3,4 +3,5 @@
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#fcfaf8</color>
     <color name="colorAccent">#278e10</color>
+    <color name="loginPage">#ffebad</color>
 </resources>

@@ -18,29 +18,38 @@
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="ABCD"
+            android:text="Watermelon"
             android:textColor="#000"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/item_date"
+            android:id="@+id/item_seller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-5dp"
             android:layout_weight="1"
-            android:text="date"
+            android:text="Seller"
             android:textSize="14sp" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="0.27"
+        android:text="$120.00"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/add_prod_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="400dp"
+        android:layout_marginLeft="100dp"
         android:layout_weight="0.12"
         android:text="Add"
         android:textSize="24sp" />
