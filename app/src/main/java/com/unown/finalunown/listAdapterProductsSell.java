@@ -36,7 +36,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
     Context context;
     ArrayList<Product> myList;
     ProductSearchActivity mySearchActivity;
-    TextView nameTextView;
+    TextView nameTextView, priceTextView, sellerTextView;
     Button addProduct;
     String username;
     String quanInt;
@@ -71,20 +71,18 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.sell_product_list_view_row, parent, false);
         nameTextView = (TextView) convertView.findViewById(R.id.item_name);
+        sellerTextView = (TextView) convertView.findViewById(R.id.item_seller);
+        priceTextView = (TextView) convertView.findViewById(R.id.item_price);
         addProduct = (Button) convertView.findViewById(R.id.add_prod_button);
-        //TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
-        //TextView price = (TextView) convertView.findViewById(R.id.priceTextView);
-        //TextView quantity = (TextView) convertView.findViewById(R.id.quantityTextView);
+
         final String nameString = myList.get(position).getProductName();
         final double priceDouble = myList.get(position).getPrice();
         final int quantityInt = myList.get(position).getQuantity();
         final String ownerString = myList.get(position).getOwner();
         final String categoryString = myList.get(position).getProductCategory();
         nameTextView.setText(nameString);
-
-        //price.setText("$" + Double.toString(priceDouble));
-        //quantity.setText("x" + Integer.toString(quantityInt));
-
+        sellerTextView.setText(ownerString);
+        priceTextView.setText("$" + String.valueOf(priceDouble));
             /*
             double lat = myList.get(position).getLocationLatitude();
             double longit = myList.get(position).getLocationLongitude();
@@ -115,9 +113,9 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                                     Toast.makeText(context, "Must request between 0 and " + quantityInt + " items"
                                             , Toast.LENGTH_SHORT).show();
                                     dialogBox.cancel();
-                                }
-                                mDatabase = FirebaseDatabase.getInstance().getReference();
-                                //get references to the cart of the buyer and pantry of seller so they can be modified
+                                } else {
+                                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                                    //get references to the cart of the buyer and pantry of seller so they can be modified
                                 /*sellerDB = mDatabase.child("Seller");
                                 sellerNameDB = sellerDB.child(ownerString);
                                 pantryDB = sellerNameDB.child("Inventory");
@@ -125,20 +123,20 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                                 productDB.child("Quantity").setValue( quantityInt- quantityRequested);
                                 */
 
-                                buyerDB = mDatabase.child("Buyer");
-                                buyerNameDB = buyerDB.child(username);
-                                cartDB = buyerNameDB.child("Cart");
+                                    buyerDB = mDatabase.child("Buyer");
+                                    buyerNameDB = buyerDB.child(username);
+                                    cartDB = buyerNameDB.child("Cart");
 
-                                //myPantry = new ArrayList<Product>();
-
-
-                                //TODO: give the option for how many they would like to add to their cart based on how many there are available
-                                cartDB.child(nameString).child("Price").setValue(priceDouble);
-                                cartDB.child(nameString).child("Quantity").setValue(quantityRequested);
-                                cartDB.child(nameString).child("Category").setValue(categoryString);
-                                cartDB.child(nameString).child("Owner").setValue(ownerString);
+                                    //myPantry = new ArrayList<Product>();
 
 
+                                    //TODO: give the option for how many they would like to add to their cart based on how many there are available
+                                    cartDB.child(nameString).child("Price").setValue(priceDouble);
+                                    cartDB.child(nameString).child("Quantity").setValue(quantityRequested);
+                                    cartDB.child(nameString).child("Category").setValue(categoryString);
+                                    cartDB.child(nameString).child("Owner").setValue(ownerString);
+
+                                }
                             }
                         })
 
@@ -153,31 +151,10 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 alertDialogAndroid.show();
 
 
-                //add item to the buyers cart
-                /*mDatabase = FirebaseDatabase.getInstance().getReference();
-                //get references to the cart of the buyer and pantry of seller so they can be modified
-                sellerDB = mDatabase.child("Seller");
-                sellerNameDB = sellerDB.child(ownerString);
-                pantryDB = sellerNameDB.child("Inventory");
-                productDB = pantryDB.child(nameString);
-                productDB.child("Quantity").setValue(33 - 1);
 
-                //adds the order to the firebase order node
-                /*orderDB = mDatabase.child("Order");
-                orderSellerDB = orderDB.child(ownerString);
-                orderNameDB = orderSellerDB.child(username);
-                orderNameDB.child(nameString).child("Price").setValue(priceDouble);
-                orderNameDB.child(nameString).child("Quantity").setValue(quantityInt);
-                orderNameDB.child(nameString).child("Category").setValue(categoryString);
-                orderNameDB.child(nameString).child("Owner").setValue(ownerString);
-                */
-/*
-                buyerDB = mDatabase.child("Buyer");
-                buyerNameDB = buyerDB.child(username);
-                cartDB = buyerNameDB.child("Cart");
 
                 //myPantry = new ArrayList<Product>();
-
+/*
 
                 //TODO: give the option for how many they would like to add to their cart based on how many there are available
                 cartDB.child(nameString).child("Price").setValue(priceDouble);

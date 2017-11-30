@@ -43,7 +43,7 @@ public class listAdapterProducts extends ArrayAdapter {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.list_view_row, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.sellerNameTextView);
-        TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
+        //TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
         TextView price = (TextView) convertView.findViewById(R.id.priceTextView);
         TextView quantity = (TextView) convertView.findViewById(R.id.quantityTextView);
         TextView owner = (TextView) convertView.findViewById(R.id.ownerTextView);
@@ -54,7 +54,7 @@ public class listAdapterProducts extends ArrayAdapter {
         name.setText(nameString);
         price.setText("$" + Double.toString(priceDouble));
         quantity.setText("x" + Integer.toString(quantityInt));
-        owner.setText(ownerString);
+        owner.setText("Seller: " + ownerString);
 
             /*
             double lat = myList.get(position).getLocationLatitude();

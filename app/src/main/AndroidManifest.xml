@@ -30,7 +30,11 @@
         <activity android:name=".PantryActivity" />
         <activity android:name=".EditPantryActivity" />
         <activity android:name=".PastOrdersActivity" />
-        <activity android:name=".OrderRequestsActivity"></activity>
+        <activity android:name=".OrderRequestsActivity" />
+        <activity
+            android:name=".SearchedProductActivity"
+            android:label="@string/title_activity_searched_product"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

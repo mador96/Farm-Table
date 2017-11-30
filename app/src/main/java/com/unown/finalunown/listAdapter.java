@@ -45,7 +45,7 @@ public class listAdapter extends ArrayAdapter {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             convertView = inflater.inflate(R.layout.list_view_row, parent, false);
             TextView name = (TextView) convertView.findViewById(R.id.sellerNameTextView);
-            TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
+            //TextView distance = (TextView) convertView.findViewById(R.id.distanceTextView);
             final String nameString = myList.get(position).getName();
             name.setText(nameString);
 

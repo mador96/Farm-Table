@@ -5,32 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.unown.finalunown.RegisterActivity">
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="@color/loginPage"
+        android:layout_above="@+id/listView1"
+        android:layout_below="@+id/searchEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="0dp"
+        />
 
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="101dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="109dp" />
+        tools:layout_editor_absoluteY="109dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/divider"
+        android:layout_alignStart="@+id/textView" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/usernameEditText"
-        android:layout_below="@+id/usernameEditText"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textVisiblePassword"
         tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="175dp" />
+        tools:layout_editor_absoluteY="175dp"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_alignStart="@+id/usernameEditText" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,20 +52,21 @@
         android:textSize="40dp"
         tools:layout_editor_absoluteX="91dp"
         tools:layout_editor_absoluteY="35dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/divider"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="109dp" />
+        android:layout_marginBottom="19dp" />
 
     <TextView
         android:id="@+id/registerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="Register as a seller or buyer?"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="316dp" />
+        tools:layout_editor_absoluteY="316dp"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -63,29 +76,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp">
 
-        <RadioButton
-            android:id="@+id/yesSellerRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/noSellerRadioButton"
-            android:layout_below="@+id/registerTextView"
-            android:layout_marginTop="24dp"
-            android:text="Seller"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="119dp"
-            tools:layout_editor_absoluteY="361dp" />
-
-        <RadioButton
-            android:id="@+id/noSellerRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/registerTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:text="Buyer"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="204dp"
-            tools:layout_editor_absoluteY="361dp" />
     </RadioGroup>
 
     <Button
@@ -93,16 +83,48 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
         android:background="@color/colorPrimary"
         android:onClick="writeNewUser"
         android:text="Create Profile"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="416dp" />
+        tools:layout_editor_absoluteY="416dp"
+        android:layout_below="@+id/yesSellerRadioButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
+    <RadioButton
+        android:id="@+id/yesSellerRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seller"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="361dp"
+        android:layout_alignBaseline="@+id/noSellerRadioButton"
+        android:layout_alignBottom="@+id/noSellerRadioButton"
+        android:layout_alignStart="@+id/passwordEditText" />
+
+    <RadioButton
+        android:id="@+id/noSellerRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buyer"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="361dp"
+        android:layout_below="@+id/radioGroup3"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginTop="26dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/other_farm"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/createProfileButton"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

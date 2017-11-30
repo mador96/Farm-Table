@@ -14,7 +14,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="266dp"
+        android:layout_width="216dp"
         android:layout_height="51dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/tractor_image" />
