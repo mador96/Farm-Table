@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -35,7 +42,10 @@ public class EditProfileActivity extends AppCompatActivity {
     static final int PICK_IMAGE_REQUEST = 3;
     private DatabaseReference mDatabase;
     User mUser;
+    String nameStr;
 
+    private StorageReference storageRef;
+    private FirebaseStorage storage;
 
     ImageView profilePicture;
     Button takePictureButton;
@@ -43,6 +53,7 @@ public class EditProfileActivity extends AppCompatActivity {
     EditText nameET, locationET, descriptionET;
 
     Uri file;
+    Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +68,13 @@ public class EditProfileActivity extends AppCompatActivity {
         nameET = (EditText) findViewById(R.id.nameEditText);
         locationET = (EditText) findViewById(R.id.locationEditText);
         descriptionET = (EditText) findViewById(R.id.descriptionEditText);
-        //ImageView??
-        //mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReferenceFromUrl("gs://final-project-final-unown.appspot.com");
+
 
         //get passed info from previous activity
-        String nameStr = getIntent().getStringExtra("MY_NAME");
+        nameStr = getIntent().getStringExtra("MY_NAME");
         String descriptionStr = getIntent().getStringExtra("MY_DESCRIPTION");
         String locationStr = getIntent().getStringExtra("MY_LOCATION");
 
@@ -96,6 +109,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 returnIntent.putExtra("MY_DESCRIPTION2", description);
                 //get newly inputted strings and .set them for the user
 
+
+                //upload image here
+                uploadToFirebase();
 
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
@@ -163,11 +179,12 @@ public class EditProfileActivity extends AppCompatActivity {
         else if (requestCode == PICK_IMAGE_REQUEST) {
             //Add here.
             if(resultCode == RESULT_OK && data != null && data.getData() != null){
-                Uri uri = data.getData();
+                uri = data.getData();
                 try{
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     ImageView profilePicture = (ImageView) findViewById(R.id.profilePicture);
                     profilePicture.setImageBitmap(bitmap);
+
                 }
                 catch(IOException e){
                     e.printStackTrace();
@@ -184,5 +201,53 @@ public class EditProfileActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public void uploadToFirebase(){
+
+        /*
+        //method to upload storage image to FireBase
+        if(uri != null){
+            Toast.makeText(this, "image exists!", Toast.LENGTH_SHORT).show();
+            StorageReference childRef = storageRef; //username -> image
+
+            //uploading the image
+            UploadTask uploadTask = childRef.putFile(uri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(EditProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(EditProfileActivity.this, "Upload Failed -> " + e, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        */
+        //upload camera capture to Firebase?
+        Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+        StorageReference myImage = storageRef.child("images/rivers.jpg");
+
+        myImage.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(EditProfileActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+
+                        // Get a URL to the uploaded content
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                        Toast.makeText(EditProfileActivity.this, "Upload Failed -> " + exception, Toast.LENGTH_LONG).show();
+
+                    }
+                });
     }
 }
