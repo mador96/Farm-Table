@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordStr = credentials.getString(usernameValue, null);
 
         //If credentials don't have a match
-        if(usernameValue == null || passwordStr == null){
+        if(usernameValue == null || passwordStr == null || !passwordValue.equals(passwordStr)){
             Toast.makeText(this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
         }
         else{ //remove
