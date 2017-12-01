@@ -197,7 +197,7 @@ public class ProductSearchActivity extends AppCompatActivity
             intent.putExtra("MY_USERNAME", currentUser);//pass name of current user
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, BuyerProfileActivity.class);
             intent.putExtra("MY_USERNAME", currentUser);
             startActivity(intent);
 

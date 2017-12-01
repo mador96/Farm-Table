@@ -142,8 +142,8 @@ public class RegisterActivity extends AppCompatActivity {
                 mDatabase.child("Buyer").child(mUser.getName()).child("Cart").child("Orange").child("Owner").setValue("paul");
 
             }
-            //Intent intent = new Intent(this, ProductSearchActivity.class);
-            Intent intent = new Intent (this, ProductSearchActivity.class);
+            Intent intent = new Intent(this, OrderReqNavActivity.class);
+            //Intent intent = new Intent (this, ProductSearchActivity.class);
             intent.putExtra("MY_USERNAME", usernameValue);
             startActivity(intent);
         }

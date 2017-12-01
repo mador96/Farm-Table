@@ -36,6 +36,22 @@
         <activity
             android:name=".SearchedProductActivity"
             android:label="@string/title_activity_searched_product"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".BuyerProfileActivity"
+            android:label="@string/title_activity_buyer_profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SellerProfileActivity"
+            android:label="@string/title_activity_seller_profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OrderReqNavActivity"
+            android:label="@string/title_activity_order_req_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".PantryNavActivity"
+            android:label="@string/title_activity_pantry_nav"
             android:theme="@style/AppTheme"></activity>
     </application>
 

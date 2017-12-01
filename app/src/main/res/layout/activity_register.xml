@@ -122,6 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="34dp"
+        android:src="@drawable/other_farm"
         android:layout_below="@+id/createProfileButton"
         android:layout_alignParentStart="true" />
 

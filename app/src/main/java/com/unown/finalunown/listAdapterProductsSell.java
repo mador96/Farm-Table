@@ -178,7 +178,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
             }
         });
 
-        nameTextView.setOnClickListener(new View.OnClickListener() {
+        /*nameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProfileSellingActivity.class);
@@ -188,6 +188,7 @@ public class listAdapterProductsSell extends ArrayAdapter implements Filterable 
                 context.startActivity(intent);
             }
         });
+        */
         return convertView;
     }
 }

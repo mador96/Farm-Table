@@ -106,7 +106,7 @@ public class SearchedProductActivity extends AppCompatActivity
                                 String quantity = String.valueOf(postSnapshot.child("Quantity").getValue());
                                 String owner = String.valueOf(postSnapshot.child("Owner").getValue());
                                 Product newProd = new Product( productCategory, Double.valueOf(price), productName, Integer.valueOf(quantity), owner);
-                                if (!listOfProducts.contains(newProd) && newProd.getProductName().equals(searchedProduct)){
+                                if (!listOfProducts.contains(newProd) && newProd.getProductName().equalsIgnoreCase(searchedProduct)){
                                     listOfProducts.add(newProd);
                                 }
                             }
@@ -175,7 +175,7 @@ public class SearchedProductActivity extends AppCompatActivity
             intent.putExtra("MY_USERNAME", currentUser);//pass name of current user
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, BuyerProfileActivity.class);
             intent.putExtra("MY_USERNAME", currentUser);
             startActivity(intent);
 
