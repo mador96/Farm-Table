@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.unown.finalunown.EditPantryActivity">
 
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/editToolbar"
+        app:layout_constraintBottom_toTopOf="@+id/nameLabelTextView"
+        app:layout_constraintTop_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/nameLabelTextView"

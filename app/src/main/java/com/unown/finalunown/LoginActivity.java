@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             //Bring to home page
             if(sellerYesNo.matches("Yes")) {
                 //Intent intent = new Intent(this, ProductSearchActivity.class);
-                Intent intent = new Intent(this, PantryNavActivity.class);
+                Intent intent = new Intent(this, OrderRequestsActivity.class);
                 intent.putExtra("MY_USERNAME", usernameValue);
                 startActivity(intent);
             }

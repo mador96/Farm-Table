@@ -26,12 +26,12 @@
             android:label="@string/title_activity_user_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".EditProfileActivity"
+            />
         <activity android:name=".ProfileSellingActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".PantryActivity" />
         <activity android:name=".EditPantryActivity" />
-        <activity android:name=".PastOrdersActivity" />
         <activity android:name=".OrderRequestsActivity" />
         <activity
             android:name=".SearchedProductActivity"

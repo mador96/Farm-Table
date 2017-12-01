@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 public class EditPantryActivity extends AppCompatActivity {
     EditText nameET, categoryET, priceET, quantityET;
@@ -17,6 +19,13 @@ public class EditPantryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pantry);
+
+        //toolbar?
+        Toolbar editPantryToolbar = (Toolbar) findViewById(R.id.editToolbar);
+        setSupportActionBar(editPantryToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Edit Pantry");
+        //toolbar?
 
         nameET = (EditText) findViewById(R.id.nameEditText);
         categoryET = (EditText) findViewById(R.id.categoryEditText);
@@ -49,5 +58,13 @@ public class EditPantryActivity extends AppCompatActivity {
             Toast.makeText(this, "Quantity and Price must be numeric inputs", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //If cancel button is pressed, go back to main activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return false;
+    }
 }
