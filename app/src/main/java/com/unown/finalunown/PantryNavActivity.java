@@ -49,6 +49,7 @@ public class PantryNavActivity extends AppCompatActivity
     DbHelper myDbHelper;
     SQLiteDatabase db;
     Cursor cursor;
+    private static final String savedThingsKey = "savedThings";
 
 
     @Override
@@ -97,11 +98,12 @@ public class PantryNavActivity extends AppCompatActivity
         myPantry = new ArrayList<>();
 
         if (savedInstanceState==null && cursor.moveToFirst()) {
-            //Toast.makeText(this.getApplicationContext(), "in the first if stateemnet", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), "in the first if statemnet", Toast.LENGTH_SHORT).show();
             myPantry = myContent.readDB(db, cursor, myPantry, username);
             myContent.updateDB(db, myDbHelper, myPantry, "pantry");
         } else if (cursor.moveToFirst()) {
-            myContent.updateDB(db, myDbHelper, myPantry, "pantry");
+            myPantry = myContent.readDB(db,cursor,myPantry, username);
+            //myContent.updateDB(db, myDbHelper, myPantry, "pantry");
         } else {
             myPantry = myContent.populateArray(myPantry, username);
             myContent.insertThings(db, myPantry);
@@ -122,6 +124,12 @@ public class PantryNavActivity extends AppCompatActivity
 
         });
     }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+
 
     public void uploadSQLiteData() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -206,7 +214,7 @@ public class PantryNavActivity extends AppCompatActivity
                 if (!myPantry.contains(newProduct)) {
                     myPantry.add(newProduct);
 
-                    //add new item to firebase
+                    /*//add new item to firebase
                     mDatabase = FirebaseDatabase.getInstance().getReference();
                     sellerDB = mDatabase.child("Seller");
                     userDB = sellerDB.child(username);
@@ -219,10 +227,10 @@ public class PantryNavActivity extends AppCompatActivity
                     mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Category").setValue(itemCategoryStr);
                     mDatabase.child("Seller").child(username).child("Inventory").child(itemNameStr).child("Owner").setValue(username);
                     //finished adding new item to firebase
-
-                    for (int i = 0; i < myPantry.size(); i++) {
+*/
+                    //for (int i = 0; i < myPantry.size(); i++) {
                         //Toast.makeText(this.getApplicationContext(), myPantry.get(i).getProductName(), Toast.LENGTH_SHORT).show();
-                    }
+                    //}
                 }
                 myContent.updateDB(db, myDbHelper, myPantry, "pantry");
 
