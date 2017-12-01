@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,7 @@ public class OrderReqNavActivity extends AppCompatActivity
     String ownerUsername;
     ArrayList<Product> myOrders;
     listAdapterProducts adapter;
+    String descriptionString;
 
     private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB;
 
@@ -70,8 +72,8 @@ public class OrderReqNavActivity extends AppCompatActivity
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Would you like to complete or remove this order?");
+       // builder.setTitle("Confirm");
+       // builder.setMessage("Would you like to complete or remove this order?");
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -79,6 +81,34 @@ public class OrderReqNavActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
                 final int myPosition = position;
+
+                String ownerString =  myOrders.get(myPosition).getOwner();
+                buyerDB = mDatabase.child("Buyer");
+                ownerDB = buyerDB.child(ownerString);
+                //Toast.makeText(this, "username in place order" + username, Toast.LENGTH_SHORT).show();
+                //get references to the cart of the buyer and pantry of seller so they can be modified
+                //d
+                //final int quantityRequested = order.getQuantity();
+                //productName = order.getProductName();
+                ownerDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        descriptionString = dataSnapshot.child("description").getValue().toString();
+
+                        //Toast.makeText(OrderReqNavActivity.this, "inside ondatchanged " + descriptionString, Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                });
+
+                builder.setMessage("Buyer Contact: " + descriptionString);
+                builder.setTitle("Complete/Remove this order?");
+
 
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
