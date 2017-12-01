@@ -41,7 +41,7 @@ public class CartNavActivity extends AppCompatActivity
     String username;
     String ownertoReceive;
     listAdapterProducts adapter;
-    String quantityString;
+    String quantityString, productName;
     private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB, sellerDB, pantryDB, productDB;
 
     @Override
@@ -99,7 +99,8 @@ public class CartNavActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
                 final int myPosition = position;
-                Toast.makeText(CartNavActivity.this, "inside clicker of list", Toast.LENGTH_SHORT).show();
+                //
+                //Toast.makeText(CartNavActivity.this, "inside clicker of list", Toast.LENGTH_SHORT).show();
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
@@ -162,22 +163,24 @@ public class CartNavActivity extends AppCompatActivity
             String ownerName = order.getOwner();
             sellerDB = mDatabase.child("Seller");
             ownerDB = sellerDB.child(ownerName);
-            Toast.makeText(this, "username in place order" + username, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "username in place order" + username, Toast.LENGTH_SHORT).show();
             //get references to the cart of the buyer and pantry of seller so they can be modified
             pantryDB = ownerDB.child("Inventory");
             productDB = pantryDB.child(order.getProductName());
             final int quantityRequested = order.getQuantity();
-            final String productName = order.getProductName();
-            productDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            productName = order.getProductName();
+            /*productDB.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    //String chilCount = String.valueOf(postSnapshot.getChildrenCount());
+                    //Toast.makeText(CartNavActivity.this, "Children Count" + chilCount, Toast.LENGTH_SHORT).show();
                     //for (DataSnapshot dataSnapshot: postSnapshot.getChildren()) {
                        // quantityString = dataSnapshot.child("Inventory").child(productName).child("Quantity").getValue().toString();
                         quantityString = dataSnapshot.child("Quantity").getValue().toString();
                         int quantityInt = Integer.valueOf(quantityString);
                         productDB.child("Quantity").setValue(quantityInt - quantityRequested);
                         //Toast.makeText(CartNavActivity.this, "inside ondatchanged" + quantityString, Toast.LENGTH_SHORT).show();
-                   // }
+                    //}
                 }
 
                 @Override
@@ -186,6 +189,7 @@ public class CartNavActivity extends AppCompatActivity
                 }
 
             });
+            */
 
 
 
