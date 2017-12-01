@@ -41,7 +41,8 @@ public class CartNavActivity extends AppCompatActivity
     String username;
     String ownertoReceive;
     listAdapterProducts adapter;
-    private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB;
+    String quantityString;
+    private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB, sellerDB, pantryDB, productDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,10 +156,42 @@ public class CartNavActivity extends AppCompatActivity
     }
 
     public void placeOrder(View view){
-        Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
         //Send to owner
         for(Product order: myCart){
             String ownerName = order.getOwner();
+            sellerDB = mDatabase.child("Seller");
+            ownerDB = sellerDB.child(ownerName);
+            Toast.makeText(this, "username in place order" + username, Toast.LENGTH_SHORT).show();
+            //get references to the cart of the buyer and pantry of seller so they can be modified
+            pantryDB = ownerDB.child("Inventory");
+            productDB = pantryDB.child(order.getProductName());
+            final int quantityRequested = order.getQuantity();
+            final String productName = order.getProductName();
+            productDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //for (DataSnapshot dataSnapshot: postSnapshot.getChildren()) {
+                       // quantityString = dataSnapshot.child("Inventory").child(productName).child("Quantity").getValue().toString();
+                        quantityString = dataSnapshot.child("Quantity").getValue().toString();
+                        int quantityInt = Integer.valueOf(quantityString);
+                        productDB.child("Quantity").setValue(quantityInt - quantityRequested);
+                        //Toast.makeText(CartNavActivity.this, "inside ondatchanged" + quantityString, Toast.LENGTH_SHORT).show();
+                   // }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+
+
+            //int quantityInt = Integer.valueOf(quantityString);
+            //Toast.makeText(this, "quantity String" + quantityString, Toast.LENGTH_SHORT).show();
+            //productDB.child("Quantity").setValue( quantityInt- quantityRequested);
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Category").setValue(order.getProductCategory()); //username = username of the person requesting the order
             mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Price").setValue(order.getPrice());

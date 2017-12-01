@@ -28,7 +28,7 @@ public class CartActivity extends AppCompatActivity {
     String username;
     String ownertoReceive;
     listAdapterProducts adapter;
-    private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB;
+    private DatabaseReference mDatabase, buyerDB, userDB, cartDB, ownerDB, sellerDB, pantryDB, productDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +98,23 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void placeOrder(View view){
-        Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Your order has been placed", Toast.LENGTH_SHORT).show();
         //Send to owner
         for(Product order: myCart){
             String ownerName = order.getOwner();
             mDatabase = FirebaseDatabase.getInstance().getReference();
+            sellerDB = mDatabase.child("Seller");
+            ownerDB = sellerDB.child(username);
+            Toast.makeText(this, "username in place order" + username, Toast.LENGTH_SHORT).show();
+            //get references to the cart of the buyer and pantry of seller so they can be modified
+            pantryDB = ownerDB.child("Inventory");
+            productDB = pantryDB.child(order.getProductName());
+            int quantityRequested = order.getQuantity();
+            String quantityString = productDB.child("Quantity").getKey();
+            int quantityInt = Integer.valueOf(quantityString);
+            Toast.makeText(this, "quantity String" + quantityString, Toast.LENGTH_SHORT).show();
+            productDB.child("Quantity").setValue( quantityInt- quantityRequested);
+
             mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Category").setValue(order.getProductCategory()); //username = username of the person requesting the order
             mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Price").setValue(order.getPrice());
             mDatabase.child("Order").child(ownerName).child(username).child(order.getProductName()).child("Quantity").setValue(order.getQuantity());
