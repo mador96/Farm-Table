@@ -252,7 +252,7 @@ public class SellerProfileActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_orders) {
-            Intent intent = new Intent(this, OrderRequestsActivity.class);
+            Intent intent = new Intent(this, OrderReqNavActivity.class);
             intent.putExtra("MY_USERNAME", passingUsername);
             startActivity(intent);
         }

@@ -1,9 +1,11 @@
 package com.unown.finalunown;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -58,16 +60,46 @@ public class OrderReqNavActivity extends AppCompatActivity
         Intent passedIntent = getIntent();
         ownerUsername = passedIntent.getStringExtra("MY_USERNAME");
 
-
         readData();
 
         adapter = new listAdapterProducts(OrderReqNavActivity.this, myOrders);
         list.setAdapter(adapter);
 
+
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Would you like to complete or remove this order?");
+
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id){
+                final int myPosition = position;
+
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                        deleteFromFirebase(myOrders.get(myPosition).getProductName(), myOrders.get(myPosition).getOwner());
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+
+
 
                 deleteFromFirebase(myOrders.get(position).getProductName(), myOrders.get(position).getOwner());
 

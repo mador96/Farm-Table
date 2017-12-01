@@ -37,9 +37,10 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textVisiblePassword"
+        android:inputType="textPassword"
         android:layout_below="@+id/usernameEditText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
     <Button
         android:id="@+id/loginButton"
@@ -86,5 +87,14 @@
         android:src="@drawable/other_farm"
         android:layout_below="@+id/loginButton"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/divider"
+        android:ems="10"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

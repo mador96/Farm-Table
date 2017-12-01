@@ -8,13 +8,13 @@
 
 
     <ImageView
+        android:id="@+id/profilePicture"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@android:color/background_light"
-        android:id="@+id/profilePicture"
-        android:layout_marginTop="63dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/nameTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp"
+        app:srcCompat="@android:color/background_light" />
 
 
     <TextView
