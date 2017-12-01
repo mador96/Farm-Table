@@ -1,5 +1,6 @@
 package com.unown.finalunown;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -59,11 +61,17 @@ public class EditProfileActivity extends AppCompatActivity {
     Uri filePath;
     boolean cameraUsed;
     boolean pictureUpdated;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        //Intent passedIntent = getIntent();
+
+        //Toolbar
+        Toolbar editProfileToolbar = (Toolbar) findViewById(R.id.editToolbar);
+        setSupportActionBar(editProfileToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Edit Profile");
 
 
         //initialize fields
@@ -108,11 +116,11 @@ public class EditProfileActivity extends AppCompatActivity {
         // We are giving you the code that checks for permissions
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             takePictureButton.setEnabled(true);
-            ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, TAKE_PHOTO_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, TAKE_PHOTO_PERMISSION);
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v){
+            public void onClick(View v) {
                 String name = nameET.getText().toString();
                 String location = locationET.getText().toString();
                 String description = descriptionET.getText().toString();
@@ -175,10 +183,10 @@ public class EditProfileActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    public File getOutputMediaFile(){
+    public File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraDemo");
-        if(!mediaStorageDir.exists()){
-            if(!mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
                 return null;
             }
         }
@@ -194,24 +202,22 @@ public class EditProfileActivity extends AppCompatActivity {
         // from the image gallery.
 
         if (requestCode == REQUEST_TAKE_PHOTO) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 profilePicture.setImageURI(file);
                 cameraUsed = true;
                 pictureUpdated = true;
             }
-        }
-        else if (requestCode == PICK_IMAGE_REQUEST) {
+        } else if (requestCode == PICK_IMAGE_REQUEST) {
             //Add here.
-            if(resultCode == RESULT_OK && data != null && data.getData() != null){
+            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                 filePath = data.getData();
-                try{
+                try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     ImageView profilePicture = (ImageView) findViewById(R.id.profilePicture);
                     profilePicture.setImageBitmap(bitmap);
                     cameraUsed = false;
                     pictureUpdated = true;
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -220,18 +226,19 @@ public class EditProfileActivity extends AppCompatActivity {
 
     //If cancel button is pressed, go back to main activity
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == android.R.id.home){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
         return false;
+
     }
 
-    public void uploadToFirebase(){
+    public void uploadToFirebase() {
         //upload camera capture to Firebase?
         Uri myFile;
-        if(pictureUpdated == true) {
+        if (pictureUpdated == true) {
             //Upload from stored photos to firebase
             if (cameraUsed == true) {
                 myFile = file;
