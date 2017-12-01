@@ -242,7 +242,7 @@ public class BuyerProfileActivity extends AppCompatActivity
 
         if (id == R.id.nav_cart) {
             // Handle the camera action
-            Intent intent = new Intent(this, CartActivity.class);
+            Intent intent = new Intent(this, CartNavActivity.class);
             //intent.putExtra("MY_USERNAME", currentUser);//pass name of current user
             intent.putExtra("MY_USERNAME", passingUsername);//pass name of current user
             startActivity(intent);

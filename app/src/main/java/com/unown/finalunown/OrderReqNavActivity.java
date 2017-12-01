@@ -43,6 +43,7 @@ public class OrderReqNavActivity extends AppCompatActivity
         setContentView(R.layout.activity_order_req_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Orders");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,9 +100,8 @@ public class OrderReqNavActivity extends AppCompatActivity
                 });
 
 
-
-
-                deleteFromFirebase(myOrders.get(position).getProductName(), myOrders.get(position).getOwner());
+                AlertDialog alert = builder.create();
+                alert.show();
 
             }
         });

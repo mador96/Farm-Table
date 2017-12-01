@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.unown.finalunown.CartNavActivity">
+
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="42dp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="25dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/placeOrderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="64dp"
+            android:layout_marginStart="118dp"
+            android:onClick="placeOrder"
+            android:text="Place Order" />
+
+        <TextView
+            android:id="@+id/totalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/placeOrderButton"
+            android:layout_alignEnd="@+id/placeOrderButton"
+            android:layout_marginBottom="61dp"
+            android:text="Total: "
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/totalCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/totalLabel"
+            android:layout_alignBottom="@+id/totalLabel"
+            android:layout_alignEnd="@+id/title"
+            android:text="$0.00"
+            android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:text="My Cart"
+        android:textSize="70dp" />
+
+        <Button
+            android:id="@+id/clearCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/placeOrderButton"
+            android:layout_alignBottom="@+id/placeOrderButton"
+            android:layout_alignStart="@+id/totalCost"
+            android:onClick="clearMyCart"
+            android:text="Clear Cart" />
+
+</RelativeLayout>
+
+

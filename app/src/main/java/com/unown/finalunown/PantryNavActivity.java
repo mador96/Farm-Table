@@ -59,6 +59,7 @@ public class PantryNavActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -79,7 +80,7 @@ public class PantryNavActivity extends AppCompatActivity
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
 
-        list = (ListView) findViewById(R.id.listView);
+        list = (ListView) findViewById(R.id.listPantryNav);
         addItem = (FloatingActionButton) findViewById(R.id.addItem);
         upload = (Button) findViewById(R.id.uploadButton);
 
