@@ -29,9 +29,7 @@ public class Product implements Serializable{
         out.writeString(productName);
         out.writeString(owner);
         out.writeInt(quantity);
-
     }
-
     private Product(Parcel in){
         this.productCategory = in.readString();
         this.price = in.readDouble();
@@ -39,14 +37,11 @@ public class Product implements Serializable{
         this.quantity = in.readInt();
         this.owner = in.readString();
     }
-
     public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
-
         @Override
         public Product createFromParcel(Parcel source) {
             return new Product(source);
         }
-
         @Override
         public Product[] newArray(int size) {
             return new Product[size];
