@@ -104,7 +104,7 @@ public class CartNavActivity extends AppCompatActivity
 
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
-                        deleteFromFirebase(myCart.get(myPosition).getProductName(), myCart.get(myPosition).getOwner());
+                        deleteFromFirebase(myCart.get(myPosition).getProductName());
                         dialog.dismiss();
                     }
                 });
@@ -128,6 +128,8 @@ public class CartNavActivity extends AppCompatActivity
 
         });
 
+
+
     }
 
 
@@ -137,17 +139,14 @@ public class CartNavActivity extends AppCompatActivity
         userDB = buyerDB.child(username);
         cartDB = userDB.child("Cart");
         myCart = new ArrayList<Product>();
-        cartDB.addValueEventListener(new ValueEventListener() {
+        cartDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    //Clear the caxrt/delete cart node and
-                    postSnapshot.getRef().removeValue(); //delete cart
+                    deleteFromFirebase(String.valueOf(postSnapshot.getKey()));
                     myCart.clear();
                 }
 
-                //listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart);
-                //list.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
@@ -172,17 +171,14 @@ public class CartNavActivity extends AppCompatActivity
         userDB = buyerDB.child(username);
         cartDB = userDB.child("Cart");
         myCart = new ArrayList<Product>();
-        cartDB.addValueEventListener(new ValueEventListener() {
+        cartDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    //Clear the caxrt/delete cart node and
-                    postSnapshot.getRef().removeValue(); //delete cart
+                    deleteFromFirebase(String.valueOf(postSnapshot.getKey()));
                     myCart.clear();
                 }
 
-                //listAdapterProductsSell adapter = new listAdapterProductsSell(CartActivity.this, myCart);
-                //list.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
@@ -200,6 +196,7 @@ public class CartNavActivity extends AppCompatActivity
         cartDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                myCart.clear();
                 //DataSnapshot productNames = snapshot.child("Name");
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     String productName = String.valueOf(postSnapshot.getKey());
@@ -209,10 +206,13 @@ public class CartNavActivity extends AppCompatActivity
                     String ownerStr = String.valueOf(postSnapshot.child("Owner").getValue());
                     ownertoReceive = ownerStr;
 
-                    String priceReformat = String.format("%.2f", Double.parseDouble(productPrice));
+                    try {
+                        String priceReformat = String.format("%.2f", Double.parseDouble(productPrice));
 
-                    Product newProduct = new Product(category, Double.parseDouble(priceReformat) , productName, Integer.parseInt(theQuantity), ownerStr);
-                    myCart.add(newProduct);
+                        Product newProduct = new Product(category, Double.parseDouble(priceReformat), productName, Integer.parseInt(theQuantity), ownerStr);
+                        myCart.add(newProduct);
+                    }
+                    catch(NumberFormatException e){}
                 }
 
                 //For every product in myCart, add up the price
@@ -235,12 +235,15 @@ public class CartNavActivity extends AppCompatActivity
         });
     }
 
-    public void deleteFromFirebase(String productName, String buyerName){
+
+    public void deleteFromFirebase(String productName){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         cartDB = mDatabase.child("Buyer").child(username).child("Cart");
-        myCart = new ArrayList<Product>();
-        cartDB.child(productName).setValue(null);
-
+        //myCart = new ArrayList<Product>();
+        cartDB.child(productName).child("Category").setValue(null);
+        cartDB.child(productName).child("Owner").setValue(null);
+        cartDB.child(productName).child("Price").setValue(null);
+        cartDB.child(productName).child("Quantity").setValue(null);
     }
 
     @Override
