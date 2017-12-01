@@ -52,6 +52,7 @@ public class ProductSearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_product_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Farm Table: Search");
         lv = (ListView) findViewById(R.id.listView1);
         searchButton = (ImageButton) findViewById(R.id.imageButton);
         searchedItemEditText = (EditText) findViewById(R.id.searchEditText);

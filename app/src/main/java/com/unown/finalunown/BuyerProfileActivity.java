@@ -56,7 +56,7 @@ public class BuyerProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_buyer_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Farm Table: Profile");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -48,10 +48,9 @@ public class CartNavActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Farm Table: Cart");
-
-
+        getSupportActionBar().setTitle("Farm Table: Cart");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
