@@ -55,7 +55,7 @@ public class listAdapterProducts extends ArrayAdapter {
         String priceReformat = String.format("%.2f", priceDouble);
         price.setText("$" + priceReformat);
         quantity.setText("x" + Integer.toString(quantityInt));
-        owner.setText(ownerString);
+        owner.setText("Owner: " + ownerString);
 
             /*
             double lat = myList.get(position).getLocationLatitude();
