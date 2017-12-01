@@ -42,11 +42,11 @@
         android:id="@+id/descriptionLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description:"
-        android:layout_marginTop="75dp"
-        android:textSize="30dp"
-        android:layout_below="@+id/locationLabelTextView"
-        android:layout_alignStart="@+id/locationLabelTextView" />
+        android:layout_above="@+id/editButton"
+        android:layout_alignStart="@+id/locationLabelTextView"
+        android:layout_marginBottom="76dp"
+        android:text="Email:"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/editButton"
@@ -72,9 +72,9 @@
         android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/descriptionLabelTextView"
-        android:layout_marginStart="25dp"
-        android:layout_toEndOf="@+id/descriptionLabelTextView"
+        android:layout_alignBaseline="@+id/locationLabelTextView"
+        android:layout_alignBottom="@+id/locationLabelTextView"
+        android:layout_alignStart="@+id/descriptionTextView"
         android:text="My Location"
         android:textSize="30dp" />
 
@@ -82,10 +82,11 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="My Description..."
-        android:textSize="30dp"
-        android:layout_alignTop="@+id/descriptionLabelTextView"
-        android:layout_alignStart="@+id/descriptionLabelTextView" />
+        android:layout_alignBaseline="@+id/descriptionLabelTextView"
+        android:layout_alignBottom="@+id/descriptionLabelTextView"
+        android:layout_alignStart="@+id/editButton"
+        android:layout_marginStart="20dp"
+        android:text="example@gmail.com"
+        android:textSize="30dp" />
 
 </RelativeLayout>

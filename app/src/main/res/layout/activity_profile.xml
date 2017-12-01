@@ -43,7 +43,7 @@
         android:layout_alignBaseline="@+id/descriptionTextView"
         android:layout_alignBottom="@+id/descriptionTextView"
         android:layout_centerHorizontal="true"
-        android:text="Description:"
+        android:text="Email:"
         android:textSize="30dp" />
 
     <Button
@@ -84,7 +84,7 @@
         android:layout_marginStart="43dp"
         android:layout_marginTop="68dp"
         android:layout_toEndOf="@+id/descriptionLabelTextView"
-        android:text="My Description..."
+        android:text="example@gmail.com"
         android:textSize="30dp" />
 
 </RelativeLayout>

@@ -74,7 +74,7 @@
         android:layout_marginBottom="43dp"
         android:ems="10"
         android:inputType="textShortMessage"
-        android:text="Description here...."
+        android:text="example@gmail.com"
         android:textSize="30dp" />
 
     <TextView
@@ -104,7 +104,7 @@
         android:layout_alignBaseline="@+id/descriptionEditText"
         android:layout_alignBottom="@+id/descriptionEditText"
         android:layout_alignStart="@+id/locationLabelTextView"
-        android:text="Description:"
+        android:text="Email:"
         android:textSize="30dp" />
 
     <Button

@@ -15,20 +15,19 @@
         android:id="@+id/profilePicture"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_above="@+id/descriptionLabelTextView"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="45dp"
-        android:layout_marginStart="76dp"
+        android:layout_below="@+id/editToolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
         app:srcCompat="@android:color/background_light" />
 
     <Button
         android:id="@+id/takePictureButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/descriptionLabelTextView"
-        android:layout_alignEnd="@+id/profilePicture"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="33dp"
+        android:layout_alignTop="@+id/profilePicture"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="42dp"
+        android:layout_toEndOf="@+id/profilePicture"
         android:onClick="takePicture"
         android:text="Take Picture" />
 
@@ -45,9 +44,9 @@
         android:id="@+id/nameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/nameLabelTextView"
-        android:layout_alignBottom="@+id/nameLabelTextView"
-        android:layout_alignStart="@+id/locationEditText"
+        android:layout_alignStart="@+id/profilePicture"
+        android:layout_below="@+id/profilePicture"
+        android:layout_marginTop="62dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
@@ -57,9 +56,9 @@
         android:id="@+id/locationEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="43dp"
-        android:layout_toEndOf="@+id/locationLabelTextView"
+        android:layout_alignStart="@+id/descriptionEditText"
+        android:layout_below="@+id/nameEditText"
+        android:layout_marginTop="62dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Location"
@@ -70,20 +69,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/saveButton"
-        android:layout_alignStart="@+id/locationEditText"
-        android:layout_marginBottom="43dp"
+        android:layout_alignEnd="@+id/imageLibraryButton"
+        android:layout_marginBottom="73dp"
         android:ems="10"
         android:inputType="textShortMessage"
-        android:text="Description here...."
+        android:text="example@gmail.com"
         android:textSize="30dp" />
 
     <TextView
         android:id="@+id/nameLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profilePicture"
-        android:layout_marginStart="75dp"
-        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_alignBaseline="@+id/nameEditText"
+        android:layout_alignBottom="@+id/nameEditText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="56dp"
         android:text="Name:"
         android:textSize="30dp" />
 
@@ -91,7 +91,6 @@
         android:id="@+id/locationLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/locationEditText"
         android:layout_alignBottom="@+id/locationEditText"
         android:layout_alignStart="@+id/nameLabelTextView"
         android:text="Location:"
@@ -101,10 +100,9 @@
         android:id="@+id/descriptionLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/descriptionEditText"
         android:layout_alignBottom="@+id/descriptionEditText"
         android:layout_alignStart="@+id/locationLabelTextView"
-        android:text="Description:"
+        android:text="Email:"
         android:textSize="30dp" />
 
     <Button
@@ -113,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="58dp"
         android:text="Save Changes" />
 
 </RelativeLayout>
