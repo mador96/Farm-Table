@@ -111,11 +111,11 @@ public class ProductSearchActivity extends AppCompatActivity
                 //Log.e("Count " ,""+snapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
 
-
+                    String here = String.valueOf(postSnapshot.getKey());
                     String name = String.valueOf(postSnapshot.child("name").getValue());
-                    nameDatabase = sellerDB.child(name);
+                    nameDatabase = sellerDB.child(here);
                     inventoryDB = nameDatabase.child("Inventory");
-                   // Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();
 
                     inventoryDB.addValueEventListener(new ValueEventListener() {
                         @Override

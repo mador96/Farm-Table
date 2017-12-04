@@ -149,6 +149,7 @@ public class BuyerProfileActivity extends AppCompatActivity
         intent.putExtra("MY_NAME", nameStr);
         intent.putExtra("MY_DESCRIPTION", descriptionStr);
         intent.putExtra("MY_LOCATION", locationStr);
+        intent.putExtra("username", passingUsername);
         startActivityForResult(intent, 1);
     }
 
@@ -163,7 +164,7 @@ public class BuyerProfileActivity extends AppCompatActivity
                 location.setText(returnedLocation);
                 description.setText(returnedDescription);
 
-                StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
+                StorageReference myImage = storageRef.child(passingUsername).child(passingUsername + ".jpg");
 
                 myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override

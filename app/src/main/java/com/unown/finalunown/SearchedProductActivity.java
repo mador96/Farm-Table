@@ -92,6 +92,7 @@ public class SearchedProductActivity extends AppCompatActivity
 
 
                     String name = String.valueOf(postSnapshot.child("name").getValue());
+                    Toast.makeText(SearchedProductActivity.this, name, Toast.LENGTH_SHORT).show();
                     nameDatabase = sellerDB.child(name);
                     inventoryDB = nameDatabase.child("Inventory");
                    // Toast.makeText(ProductSearchActivity.this, name, Toast.LENGTH_SHORT).show();

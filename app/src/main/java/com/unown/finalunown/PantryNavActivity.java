@@ -110,7 +110,7 @@ public class PantryNavActivity extends AppCompatActivity
             myPantry = myContent.readDB(db, cursor, myPantry, username);
         }
 
-        //readData();
+        readData();
         adapter = new listAdapterProducts(PantryNavActivity.this, myPantry);
         list.setAdapter(adapter);
 

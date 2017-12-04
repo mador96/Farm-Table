@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         Intent passedIntent = getIntent();
-        String nameString =  passedIntent.getStringExtra("name");
+        //String nameString =  passedIntent.getStringExtra("MY_USERNAME");
 
         name = (TextView) findViewById(R.id.nameTextView);
         location = (TextView) findViewById(R.id.locationTextView);
@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         //get username from login activity
         final String currentUser = passedIntent.getStringExtra("MY_USERNAME");
         passingUsername = currentUser;
+        Toast.makeText(this, passingUsername, Toast.LENGTH_SHORT).show();
 
         //determine if this user is a buyer or a seller
         SharedPreferences sellerStatus = getSharedPreferences(PREFS_NAME2, 0);
@@ -97,7 +98,6 @@ public class ProfileActivity extends AppCompatActivity {
             theDB = mDatabase.child("Buyer");
             listOfBuyers = new ArrayList<Buyer>();
         }
-
 
 
         theDB.addValueEventListener(new ValueEventListener() {
@@ -124,7 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //Load profile picture from firebase
-        StorageReference myImage = storageRef.child(currentUser).child(currentUser + ".jpg");
+        StorageReference myImage = storageRef.child(passingUsername).child(passingUsername + ".jpg");
 
         myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -149,6 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
         intent.putExtra("MY_NAME", nameStr);
         intent.putExtra("MY_DESCRIPTION", descriptionStr);
         intent.putExtra("MY_LOCATION", locationStr);
+        intent.putExtra("username", passingUsername);
         startActivityForResult(intent, 1);
     }
 
@@ -163,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
                 location.setText(returnedLocation);
                 description.setText(returnedDescription);
 
-                StorageReference myImage = storageRef.child(nameStr).child(nameStr + ".jpg");
+                StorageReference myImage = storageRef.child(passingUsername).child(passingUsername + ".jpg");
 
                 myImage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
