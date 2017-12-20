@@ -17,28 +17,32 @@ marketplace.
 #This app is able to do the following:
 
 ● Both Buyers and Sellers
-  ○ The system shall allows users can register on the app as a Seller or a Buyer, using a
+  - The system shall allows users can register on the app as a Seller or a Buyer, using a
   username and password of their choice
-  ○ The system shall allow users to view their profile, where they can set their name on the
+  - The system shall allow users to view their profile, where they can set their name on the
   app, their location/address, email, and a profile picture
-  ○ Monetary transactions between sellers and buyers will happen outside of the app through
+  - Monetary transactions between sellers and buyers will happen outside of the app through
   Venmo
+  
+  
 ● Sellers Only
-  ○ The system shall allows Sellers to view the items in their pantry (their inventory), and add
+  - The system shall allows Sellers to view the items in their pantry (their inventory), and add
   items to their pantry
-  ○ The system shall allows Sellers to view orders placed by buyers requesting one of their
+  - The system shall allows Sellers to view orders placed by buyers requesting one of their
   items
-  ○ The system shall allows Sellers to click on an order request to mark it as “done”, or to
+  - The system shall allows Sellers to click on an order request to mark it as “done”, or to
   view the contact information of the buyer requesting the order
-  ○ The system shall integrate SQLite to enable Sellers to update their pantry without an
+  - The system shall integrate SQLite to enable Sellers to update their pantry without an
   internet connection
+  
+
 ● Buyers Only
-  ○ The system shall dynamically read from a database a list of items that each Seller offers
-  ○ The system shall allows Buyers to search items offered by all sellers on the app and add
+  - The system shall dynamically read from a database a list of items that each Seller offers
+  - The system shall allows Buyers to search items offered by all sellers on the app and add
   desired items to their cart
-  ○ The system shall allows Buyers to view the items in their cart and generate an order for
+  - The system shall allows Buyers to view the items in their cart and generate an order for
   those items
-  ○ The system shall allows Buyers to clear all the items in their cart at once, or delete
+  - The system shall allows Buyers to clear all the items in their cart at once, or delete
   individual items by clicking on that item in the list
   
 #Authors:
